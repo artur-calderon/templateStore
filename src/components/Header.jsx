@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './Header.module.css'
 
+import { Link } from 'react-router-dom'
+
 export default function header() {
   return (
     <div>
@@ -9,13 +11,13 @@ export default function header() {
           <h3>Logo Loja</h3>
         </div>
         <ul>
-          <a href="#">
+          <Link to='/'>
             <li>Home</li>
-          </a>
+          </Link>
+          <Link to='loja'>
+              <li>Loja</li>
+          </Link>
 
-          <a href="#">
-            <li>Loja</li>
-          </a>
           <a href="#">
             <li>Atendimento</li>
           </a>
