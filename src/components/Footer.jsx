@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Footer.module.css'
 
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import {
   signInWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from 'firebase/auth'
 import { app } from '../firebase'
 
@@ -14,28 +16,51 @@ export default function Footer() {
   const [isLogado, setIsLogado] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassowrd] = useState('')
-
   const auth = getAuth(app)
+  const history = useNavigate()
+
+  const MyAlert = withReactContent(Swal)
+
+  useEffect(() => {
+    const logado = onAuthStateChanged(auth, user => {
+      user ? setIsLogado(true) : setIsLogado(false)
+    })
+
+    return logado
+  })
+
+  function LogOut() {
+    signOut(auth)
+      .then(() => {
+        MyAlert.fire({
+          title: 'Deslogado',
+          text: 'Tchau Tchau! :)'
+        })
+        history('/')
+      })
+      .catch(err => console.log(err))
+  }
   function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then(response => {
         console.log(response)
         if (response) {
+          MyAlert.fire({
+            icon: 'success',
+            title: 'Logado com sucesso'
+          })
           setPassowrd('')
           setEmail('')
         }
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        MyAlert.fire({
+          icon: 'error',
+          title: 'Algo deu errado',
+          text: err
+        })
+      })
   }
-
-  useEffect(() => {
-    const logado = onAuthStateChanged(auth, user => {
-      console.log(user)
-      if (user) setIsLogado(true)
-    })
-
-    return logado
-  })
 
   return (
     <>
@@ -51,6 +76,7 @@ export default function Footer() {
                   </Link>
                   <li>Ver Produtos</li>
                   <li>Configurações</li>
+                  <button onClick={LogOut}>Sair</button>
                 </ul>
               </>
             ) : (
