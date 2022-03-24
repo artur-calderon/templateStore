@@ -71,7 +71,7 @@ export default function Footer() {
               <>
                 <h3>Logado</h3>
                 <ul>
-                  <Link to="cadastrar_produtos">
+                  <Link to="/cadastrar_produtos">
                     <li>Cadastrar Produtos</li>
                   </Link>
                   <li>Ver Produtos</li>

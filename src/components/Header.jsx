@@ -14,8 +14,8 @@ export default function header() {
           <Link to='/'>
             <li>Home</li>
           </Link>
-          <Link to='loja'>
-              <li>Loja</li>
+          <Link to='/loja'>
+            <li>Loja</li>
           </Link>
 
           <a href="#">
