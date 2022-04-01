@@ -11,8 +11,14 @@ import {
   Modal,
   Box
 } from '@mui/material'
+import PropTypes from 'prop-types';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
+
+
+
 import { db, app, storage } from '../firebase'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { addDoc, collection, query, onSnapshot } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
@@ -41,7 +47,7 @@ export default function Cadastrar() {
   const [preco, setPreco] = useState('')
   const [categoria, setCategoria] = useState('')
   const [image, setImage] = useState()
-  const [imageLink, setImageLink] = useState('')
+  const [progress, setProgress] = useState(0);
 
 
 
@@ -76,6 +82,30 @@ export default function Cadastrar() {
     p: 4
   }
 
+
+  function LinearProgressWithLabel(props) {
+    return (
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="body2" color="text.secondary">{`${Math.round(
+            props.value,
+          )}%`}</Typography>
+        </Box>
+      </Box>
+    );
+  }
+  LinearProgressWithLabel.propTypes = {
+    /**
+     * The value of the progress indicator for the determinate and buffer variants.
+     * Value between 0 and 100.
+     */
+    value: PropTypes.number.isRequired,
+  };
+
+
   function AddNewCategory() {
     addDoc(collection(db, 'categoria'), {
       newcategory
@@ -100,14 +130,14 @@ export default function Cadastrar() {
       alert('Selecione uma categoria e Adicione uma imagem')
       return
     }
-
+    // document.querySelector('progressBar').style.display = 'block'
     const storageRef = ref(storage, image.name)
-    uploadBytes(storageRef, image).then(res => {
-      console.log('OK')
-      setImage([])
+    uploadBytesResumable(storageRef, image).then(res => {
+      console.log(res)
+      let progresso = (res.bytesTransferred / res.totalBytes) * 100
+      setProgress(prevProgress => prevProgress = 0 ? prevProgress : progresso)
+
       getDownloadURL(ref(storageRef)).then(url => {
-        console.log(url)
-        setImageLink(url)
         addDoc(collection(db, 'products'), {
           title,
           descricao,
@@ -132,8 +162,6 @@ export default function Cadastrar() {
     })
 
 
-
-
     console.log(title)
     setTitle('')
     console.log(descricao)
@@ -141,7 +169,7 @@ export default function Cadastrar() {
     console.log(preco)
     setPreco('')
     console.log(categoria)
-    setCategoria('selected')
+
 
   }
 
@@ -239,9 +267,11 @@ export default function Cadastrar() {
               </Button>
             </div>
           </div>
+
+          {/* ########### Sessão de upload de imagem ################## */}
           <div className={styles.upload}>
             <FormLabel>Insira uma foto</FormLabel>
-            <ImgPreview src={imageLink} />
+            <ImgPreview src={image ? URL.createObjectURL(image) : 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'} />
             <label htmlFor="contained-button-file">
               <Input
                 accept="image/*"
@@ -257,6 +287,9 @@ export default function Cadastrar() {
             </label>
           </div>
         </FormControl>
+        <Box sx={{ width: '100%' }} className={styles.progressBar} >
+          <LinearProgressWithLabel value={progress} />
+        </Box>
       </div>
       <Footer />
     </div>

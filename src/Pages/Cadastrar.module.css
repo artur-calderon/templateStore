@@ -8,6 +8,7 @@
   padding: 5rem 0;
   gap: 1rem;
 }
+
 .formCad .form {
   display: flex;
   width: 100%;
@@ -16,6 +17,7 @@
   margin: 0 auto;
   gap: 1rem;
 }
+
 .nameCat {
   width: 100%;
   display: flex;
@@ -23,6 +25,7 @@
   align-items: center;
   gap: 1rem;
 }
+
 .upload {
   flex: 1;
   display: flex;
@@ -31,6 +34,12 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+
+.progressBar {
+  display: none;
+}
+
 .containerInfo {
   flex: 2;
   display: flex;
@@ -39,25 +48,18 @@
   gap: 1rem;
 }
 
-.previewPhoto {
-  width: 7rem;
-  height: 10rem;
-  border: 1px solid black;
-  border-radius: 0.2rem;
-  background-image: url('https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
+
 .saveArea {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
+
 .modal {
   display: none;
   color: red;
 }
+
 .modalShow {
   display: block;
 }

@@ -41,6 +41,7 @@ img {
   align-items: center;
 }
 .mainImage div {
+  text-align: center;
   width: 20rem;
   padding: 1rem 0;
   background-color: rgba(242, 243, 244, 0.5);
