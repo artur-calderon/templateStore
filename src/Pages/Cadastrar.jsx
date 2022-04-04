@@ -48,6 +48,7 @@ export default function Cadastrar() {
   const [categoria, setCategoria] = useState('')
   const [image, setImage] = useState()
   const [progress, setProgress] = useState(0);
+  const [showProgressBar, setShowProgressBar] = useState(false)
 
 
 
@@ -105,7 +106,7 @@ export default function Cadastrar() {
     value: PropTypes.number.isRequired,
   };
 
-
+  // Função Para adicionar nova categoria
   function AddNewCategory() {
     addDoc(collection(db, 'categoria'), {
       newcategory
@@ -125,12 +126,17 @@ export default function Cadastrar() {
       )
   }
 
+
+  // Função Salva os produtos no firebase
   function SaveProduct() {
-    if (categoria === 'selected' || image.length === 0) {
-      alert('Selecione uma categoria e Adicione uma imagem')
+    if (categoria === 'selected' || title === '' || descricao === ' ' || preco === '') {
+      Alert.fire({
+        title: 'Adicione informações para poder salvar',
+        icon: 'info'
+      })
       return
     }
-    // document.querySelector('progressBar').style.display = 'block'
+    setShowProgressBar(true)
     const storageRef = ref(storage, image.name)
     uploadBytesResumable(storageRef, image).then(res => {
       console.log(res)
@@ -146,6 +152,7 @@ export default function Cadastrar() {
           imageRef: image.name,
           preco
         }).then(() => {
+          setShowProgressBar(false)
           Alert.fire({
             title: 'Cadastrado com sucesso',
             icon: 'success'
@@ -172,10 +179,116 @@ export default function Cadastrar() {
 
 
   }
+  // Componente para cadastro de produtos
+  function FormCadastro() {
+    return (
+      <>
+        {/* *********************  FORM ************ */}
+        < div className={styles.formCad} >
+          <FormLabel>Adicione seus produtos</FormLabel>
+          <FormControl className={styles.form}>
+            <div className={styles.containerInfo}>
+              <div className={styles.nameCat}>
+                <TextField
+                  label="Título"
+                  size="small"
+                  variant="standard"
+                  helperText="Camisa M Gola V"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                  fullWidth
+                />
+
+                <select
+                  style={{ height: '1.5rem' }}
+                  onChange={e => setCategoria(e.target.value)}
+                >
+                  <option value="selected">Categoria</option>
+                  {allcategory.length > 0 ? (
+                    allcategory.map(cat => {
+                      return (
+                        <option key={cat.id} value={cat.data().newcategory}>
+                          {cat.data().newcategory}
+                        </option>
+                      )
+                    })
+                  ) : (
+                    <option>Carregando...</option>
+                  )}
+                </select>
+                <Button
+                  variant="contained"
+                  component="span"
+                  style={{ height: '3rem' }}
+                  onClick={handleOpen}
+                >
+                  Nova Categoria
+                </Button>
+              </div>
+              <TextField
+                fullWidth
+                label="Descrição"
+                size="small"
+                value={descricao}
+                onChange={e => setDescricao(e.target.value)}
+                variant="outlined"
+                helperText="Tecido de algodão etc..."
+              />
+              <div className={styles.saveArea}>
+                <TextField
+                  label="Preço"
+                  size="small"
+                  value={preco}
+                  onChange={e => setPreco(e.target.value)}
+                  variant="standard"
+                  style={{ width: '8rem' }}
+                  type="number"
+                />
+                <Button
+                  variant="contained"
+                  component="span"
+                  onClick={SaveProduct}
+                >
+                  Salvar
+                </Button>
+              </div>
+            </div>
+
+            {/* ########### Sessão de upload de imagem ################## */}
+            <div className={styles.upload}>
+              <FormLabel>Insira uma foto</FormLabel>
+              <ImgPreview src={image ? URL.createObjectURL(image) : 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'} />
+              <label htmlFor="contained-button-file">
+                <Input
+                  accept="image/*"
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  onChange={e => setImage(e.target.files[0])}
+                  style={{ display: 'none' }}
+                />
+                <Button variant="contained" component="span">
+                  Upload
+                </Button>
+              </label>
+            </div>
+          </FormControl>
+          {
+            showProgressBar ? <Box sx={{ width: '100%' }} >
+              <LinearProgressWithLabel value={progress} />
+            </Box> : null
+          }
+
+        </div >
+      </>
+    )
+  }
 
   return (
     <div>
-      <Header />
+      <div>
+        <h1>Administração</h1>
+      </div>
       {/* Modal para Criar uma nova categoria e adicionar no Banco de dados */}
       <Modal
         open={open}
@@ -196,102 +309,10 @@ export default function Cadastrar() {
           <Button onClick={handleClose}>Cancelar</Button>
         </Box>
       </Modal>
+      <FormCadastro />
 
-      {/* *********************  FORM ************ */}
-      <div className={styles.formCad}>
-        <FormLabel>Adicione seus produtos</FormLabel>
-        <FormControl className={styles.form}>
-          <div className={styles.containerInfo}>
-            <div className={styles.nameCat}>
-              <TextField
-                label="Título"
-                size="small"
-                variant="standard"
-                helperText="Camisa M Gola V"
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                fullWidth
-              />
 
-              <select
-                style={{ height: '1.5rem' }}
-                onChange={e => setCategoria(e.target.value)}
-              >
-                <option value="selected">Categoria</option>
-                {allcategory.length > 0 ? (
-                  allcategory.map(cat => {
-                    return (
-                      <option key={cat.id} value={cat.data().newcategory}>
-                        {cat.data().newcategory}
-                      </option>
-                    )
-                  })
-                ) : (
-                  <option>Carregando...</option>
-                )}
-              </select>
-              <Button
-                variant="contained"
-                component="span"
-                style={{ height: '3rem' }}
-                onClick={handleOpen}
-              >
-                Nova Categoria
-              </Button>
-            </div>
-            <TextField
-              fullWidth
-              label="Descrição"
-              size="small"
-              value={descricao}
-              onChange={e => setDescricao(e.target.value)}
-              variant="outlined"
-              helperText="Tecido de algodão etc..."
-            />
-            <div className={styles.saveArea}>
-              <TextField
-                label="Preço"
-                size="small"
-                value={preco}
-                onChange={e => setPreco(e.target.value)}
-                variant="standard"
-                style={{ width: '8rem' }}
-                type="number"
-              />
-              <Button
-                variant="contained"
-                component="span"
-                onClick={SaveProduct}
-              >
-                Salvar
-              </Button>
-            </div>
-          </div>
 
-          {/* ########### Sessão de upload de imagem ################## */}
-          <div className={styles.upload}>
-            <FormLabel>Insira uma foto</FormLabel>
-            <ImgPreview src={image ? URL.createObjectURL(image) : 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'} />
-            <label htmlFor="contained-button-file">
-              <Input
-                accept="image/*"
-                id="contained-button-file"
-                multiple
-                type="file"
-                onChange={e => setImage(e.target.files[0])}
-                style={{ display: 'none' }}
-              />
-              <Button variant="contained" component="span">
-                Upload
-              </Button>
-            </label>
-          </div>
-        </FormControl>
-        <Box sx={{ width: '100%' }} className={styles.progressBar} >
-          <LinearProgressWithLabel value={progress} />
-        </Box>
-      </div>
-      <Footer />
     </div>
   )
 }
