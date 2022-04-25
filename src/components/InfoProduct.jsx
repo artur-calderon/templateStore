@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './infoProduct.css'
 import { db } from '../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { useNavigate, Link } from 'react-router-dom'
 
+import { ProductContext } from '../contexts/products'
+
+
+
+
 export default function InfoProduct({ id }) {
   const [infoProduct, setInfoProduct] = useState([]);
   const history = useNavigate()
-
+  const { addToCart } = useContext(ProductContext);
 
   useEffect(() => {
     const docRef = doc(db, 'products', id);
@@ -26,8 +31,10 @@ export default function InfoProduct({ id }) {
     return getInfoProduct
   }, [])
 
+
   return (
     <main className="main">
+
       {
         infoProduct ? (
           <div className="productCard_block">
@@ -39,13 +46,14 @@ export default function InfoProduct({ id }) {
               <p className="block_model">
                 <span className="block_model__text">Categoria: </span>
                 <span className="block_model__number">{infoProduct.categoria}</span>
+                <Link to="/carrinho">Carrinho</Link>
               </p>
               <h2 className="block_name block_name__mainName">{infoProduct.title}<sup>&reg; </sup></h2>
               <h2 className="block_name block_name__addName">Wireless Black</h2>
 
-              <p className="block_product__advantagesProduct">
+              {/* <p className="block_product__advantagesProduct">
                 {infoProduct.descricao}
-              </p>
+              </p> */}
 
               <div className="block_informationAboutDevice">
 
@@ -61,50 +69,15 @@ export default function InfoProduct({ id }) {
                   </span>
                 </div>
 
-                {/* <div class="block_rating clearfix">
-              <fieldset class="block_rating__stars">
-                <input type="radio" id="star5" name="rating" value="5" /><label
-                  class="full" for="star5" title="Awesome - 5 stars"></label>
-                <input type="radio" id="star4half" name="rating"
-                  value="4 and a half" /><label class="half" for="star4half"
-                    title="Pretty good - 4.5 stars"></label>
-                <input type="radio" id="star4" name="rating" value="4" /><label
-                  class="full" for="star4" title="Good - 4 stars"></label>
-                <input type="radio" id="star3half" name="rating"
-                  value="3 and a half" /><label class="half" for="star3half"
-                    title="Above average - 3.5 stars"></label>
-                <input type="radio" id="star3" name="rating" value="3" /><label
-                  class="full" for="star3" title="Average - 3 stars"></label>
-                <input type="radio" id="star2half" name="rating"
-                  value="2 and a half" /><label class="half" for="star2half"
-                    title="Kinda bad - 2.5 stars"></label>
-                <input type="radio" id="star2" name="rating" value="2" /><label
-                  class="full" for="star2"
-                  title="Kinda bad - 2 stars"></label>
-                <input type="radio" id="star1half" name="rating"
-                  value="1 and a half" /><label class="half" for="star1half"
-                    title="Meh - 1.5 stars"></label>
-                <input type="radio" id="star1" name="rating" value="1" /><label
-                  class="full" for="star1"
-                  title="Sucks big time - 1 star"></label>
-                <input type="radio" id="starhalf" name="rating"
-                  value="half" /><label
-                    class="half" for="starhalf"
-                    title="Sucks big time - 0.5 stars"></label>
-              </fieldset>
 
-              <span class="block_rating__avarage">4.25</span>
-              <span class="block_rating__reviews">(153 reviews)</span>
-
-            </div> */}
                 <div className="row ">
                   <div className="large-6 small-12 column left-align">
                     <div className="block_price">
                       <p className="block_price__currency">R$ {infoProduct.preco}</p>
-                      <p className="block_price__shipping">Shipping and taxes extra</p>
+                      <p className="block_price__shipping">Frete por conta do comprador</p>
                     </div>
                     <div className="block_quantity clearfix">
-                      <span className="text_specification">Quantity</span>
+                      <span className="text_specification">Quantidade</span>
                       <div className="block_quantity__chooseBlock">
                         <input className="block_quantity__number" name="quantityNumber"
                           type="text" min="1" />
@@ -127,8 +100,11 @@ export default function InfoProduct({ id }) {
                       className="block_goodColor__radio block_goodColor__silver"></label>
                   </div>
                 </div> */}
+                    <button className="button button_addToCard" onClick={() => addToCart(id)}>
+                      Adicionar ao carrinho
+                    </button>
                     <button className="button button_addToCard">
-                      Add to Cart
+                      Adicionar a Condicional
                     </button>
                     <div>
                       <Link to='/'>Voltar para Produtos</Link>

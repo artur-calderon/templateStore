@@ -28,7 +28,6 @@ export default function Card({ produtos }) {
                   </div>
                   <div className="card-footer">
                     <div className="wcf-left"><span className="price">R$ {itens.data().preco}</span></div>
-
                   </div>
                 </div>
               </div>

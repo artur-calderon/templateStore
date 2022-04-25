@@ -1,26 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import styles from './Main.module.css'
 import Card from './Card'
-import { db } from '../firebase'
-import { collection, query, onSnapshot } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
+
+
+import { ProductContext } from '../contexts/products'
 
 
 export default function Main() {
 
-  const [products, setProducts] = useState({})
-  const q = query(collection(db, 'products'));
-
-  useEffect(() => {
-    const getProducts = onSnapshot(q, res => {
-      setProducts(res.docs)
-    })
-    return getProducts;
-  }, [])
+  const { products } = useContext(ProductContext)
 
   return (
     <div className={styles.container}>
       <h2>Ano inteiro</h2>
       <p>Itens essenciais</p>
+      <Link to="/carrinho">Carrinho</Link>
       {
         products.length > 0 ? (
           <Card produtos={products} />
