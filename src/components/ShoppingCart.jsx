@@ -20,14 +20,19 @@ export default function ShoppingCart() {
 
     setCartProductsPage(cartProducts)
 
-    cartProducts.map(val => {
-      setTotal(prev => prev += Number(val.price))
-    })
+    if (cartProducts.length > 1)
+      cartProducts.map(val => {
+        if (!val.subtotal) {
+          val.subtotal = val.price
+          setTotal(prev => prev += Number(val.subtotal))
+        } else {
+          setTotal(prev => prev += Number(val.subtotal))
+        }
+      })
   }, [cartProducts])
 
   function plusProducts(e, id) {
     // variável icon pega o sinal de + ou de - da tag a
-
     let icon = e.target.firstChild.data
 
     //cria um novo array para porder ser alterado (pq o react nao deixa alterar diretamente o estado)
@@ -39,11 +44,11 @@ export default function ShoppingCart() {
       const precoFixo = rightItem.price
       rightItem.quantidade += 1
       preco = precoFixo * rightItem.quantidade
-      //adiciona no estado o novo array com as alteraçoes
-      rightItem.preco = preco
 
+      rightItem.subtotal = preco
       setTotal(prev => prev += Number(precoFixo))
-      console.log(total)
+
+      //adiciona no estado o novo array com as alteraçoes
       setCartProductsPage(newArray)
 
     } else if (icon === '-') {
@@ -51,7 +56,7 @@ export default function ShoppingCart() {
       const precoFixo = rightItem.price
       rightItem.quantidade -= 1
       preco = precoFixo * rightItem.quantidade
-      rightItem.preco = preco
+      rightItem.subtotal = preco
 
       if (rightItem.quantidade >= 1) {
 
@@ -69,8 +74,12 @@ export default function ShoppingCart() {
   }
 
   const handleCLick = (index) => {
+
+    let algo = cartProductsPage.find(index => index)
+    let count = Number(algo.subtotal) - Number(algo.price) * algo.quantidade
+    setTotal(count)
     deleteProductFromCart(index)
-    setTotal(0)
+
   }
 
   function Cart() {
@@ -101,7 +110,7 @@ export default function ShoppingCart() {
                     </div>
                     <div className="col"> <span onClick={(e) => plusProducts(e, item.id)}>-</span><span className="border">{item.quantidade}</span><span onClick={(e) => plusProducts(e, item.id)}>+</span>
                     </div>
-                    <div className="col">{item.preco ? item.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) : 'R$ ' + item.price} <span className="close" onClick={() => handleCLick(index)} >&#10005;</span></div>
+                    <div className="col"><span>Subtotal: </span>{item.subtotal ? item.subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) : 'R$ ' + item.price} <span className="close" onClick={() => handleCLick(index)} >&#10005;</span></div>
                   </div>
 
                 )
