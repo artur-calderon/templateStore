@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ProductProvider from '../src/contexts/products'
 
 
-import Home from './Pages/Home'
+import Home from './Pages/Home' 
 import Loja from './Pages/Loja'
 import Cadastrar from './Pages/Cadastrar'
 import InfoProductPage from './Pages/InfoProductPage'

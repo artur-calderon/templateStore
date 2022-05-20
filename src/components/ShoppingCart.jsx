@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { ProductContext } from '../contexts/products';
 import { Link } from 'react-router-dom';
 
+
 import './ShoppingCart.css'
 
 import Header from './Header';
@@ -102,15 +103,21 @@ export default function ShoppingCart() {
 
                 return (
 
-                  <div className=" item align-items-center" key={item.id}>
-                    <div className="col-2" ><img className="img-fluid" src={item.url} alt='Foto Produto' /></div>
-                    <div className="col">
-                      <div className=" text-muted">{item.category}</div>
-                      <div>{item.title}</div>
+                  <div className=" item" key={item.id}>
+                    <div className="itemImageAndTitle">
+                      <div className="category">{item.category}</div>
+                      <div className="imageItem" ><img className="img-fluid" src={item.url} alt='Foto Produto' /></div>
+                      <div className="titleItem">
+                        <div>{item.title}</div>
+                      </div>
                     </div>
-                    <div className="col"> <span onClick={(e) => plusProducts(e, item.id)}>-</span><span className="border">{item.quantidade}</span><span onClick={(e) => plusProducts(e, item.id)}>+</span>
+
+                    <div className="quantityItem">
+                      <span className="border" onClick={(e) => plusProducts(e, item.id)}>-</span>
+                      <span className="border">{item.quantidade}</span>
+                      <span className="border" onClick={(e) => plusProducts(e, item.id)}>+</span>
                     </div>
-                    <div className="col"><span>Subtotal: </span>{item.subtotal ? item.subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) : 'R$ ' + item.price} <span className="close" onClick={() => handleCLick(index)} >&#10005;</span></div>
+                    <div className="priceItem"><span>Subtotal: </span>{item.subtotal ? item.subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) : 'R$ ' + item.price} <span className="close" onClick={() => handleCLick(index)} >&#10005;</span></div>
                   </div>
 
                 )
@@ -128,16 +135,19 @@ export default function ShoppingCart() {
           <div className="row">
             <div className="col" style={{ paddingLeft: 0 }}>ITENS {!cartProducts.length ? 0 : null}</div>
           </div>
-          <form>
+          {/* Adicionar consulta de frete ############# */}
+          {/* <form>
             <p>SHIPPING</p> <select>
               <option className="text-muted">Standard-Delivery- &euro;5.00</option>
             </select>
             <p>GIVE CODE</p> <input id="code" placeholder="Enter your code" />
-          </form>
+          </form> */}
           <div className="row" >
-            <div className="col">TOTAL PRICE</div>
-            <div className="col text-right">R$ {total}</div>
-          </div> <button className="btn">CHECKOUT</button>
+            <div className="col">TOTAL</div>
+            <div className="col">{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</div>
+          </div>
+          <button className="btn">COMPRAR</button>
+          <button className="btn">CONDICIONAL</button>
         </div>
       </div >
     )

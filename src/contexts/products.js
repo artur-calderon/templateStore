@@ -13,6 +13,11 @@ function ProductProvider({children}){
   const [cartProducts, setCartProducts] = useState({})
 
   useEffect(() => {
+    const cartLocalStorage = window.localStorage.getItem('cart')
+    if(cartLocalStorage){
+      setCartProducts(JSON.parse(cartLocalStorage));
+    }
+
    const q = query(collection(db, 'products'));
     const getProducts = onSnapshot(q, res => {
       setProducts(res.docs)
@@ -25,8 +30,6 @@ function ProductProvider({children}){
   let quantidade = 1;
 
   function addToCart(id){
-    
-
     const newArray =  Array.from(cartProducts);
     const duplicated = newArray.find(item => item.id === id);
    
@@ -35,25 +38,25 @@ function ProductProvider({children}){
         // duplicated.price *= duplicated.quantidade
         return
     }else{
-     
       products.map(item =>{
-           if(id === item.id){
-         
-          const itensCopy = Array.from(cartProducts)
-          itensCopy.push({
-               id:item.id,
-               title:item.data().title,
-               descricao:item.data().descricao,
-               price:item.data().preco,
-               url:item.data().url,
-              category:item.data().categoria,
-              quantidade
-             })
-             setCartProducts(itensCopy)
-          
-        }
-      })
-    }
+          if(id === item.id){
+            const itensCopy = Array.from(cartProducts)
+            itensCopy.push({
+                id:item.id,
+                title:item.data().title,
+                descricao:item.data().descricao,
+                price:item.data().preco,
+                url:item.data().url,
+                category:item.data().categoria,
+                quantidade
+              })
+              setCartProducts(itensCopy )
+              window.localStorage.setItem('cart',JSON.stringify(itensCopy))
+              }
+          })
+      }
+        
+        console.log(cartProducts)
     
    
    

@@ -1,30 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
 import styles from './Header.module.css'
+import NavBar from '../components/NavBar';
+import { HiOutlineShoppingBag } from 'react-icons/hi'
+import logoUsemarcas from '../img/logo isabela.png'
 
-import { Link } from 'react-router-dom'
 
-export default function header() {
+import { ProductContext } from '../contexts/products';
+import { Link } from 'react-router-dom';
+
+export default function Header() {
+  const { cartProducts } = useContext(ProductContext)
   return (
     <div>
       <div className={styles.menu}>
-        <div>
-          <h3>Logo Loja</h3>
-        </div>
-        <ul>
-          <Link to='/'>
-            <li>Home</li>
-          </Link>
-          <Link to='/loja'>
-            <li>Loja</li>
-          </Link>
-
-          <a href="#">
-            <li>Atendimento</li>
-          </a>
-          <a href="#">
-            <li>Quem somos?</li>
-          </a>
-        </ul>
+        <img src={logoUsemarcas} alt='Logo usemarcas' />
+        <NavBar />
+        <Link to='/carrinho'><HiOutlineShoppingBag size="25px" color='white' /></Link>
       </div>
       <div className={styles.mainImage}>
         <div>
@@ -32,6 +24,6 @@ export default function header() {
           <button>Ver mais</button>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

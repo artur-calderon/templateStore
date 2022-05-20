@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
 .container {
   width: 100%;
-  /* height: 10rem; */
   background-color: rgb(48, 49, 50);
   display: flex;
   justify-content: center;
@@ -11,6 +11,7 @@
   padding: 0.8rem 0;
   gap: 1rem;
 }
+
 .containerFooter {
   width: 100%;
   display: flex;
@@ -18,35 +19,42 @@
   gap: 1.5rem;
   flex-direction: row;
 }
+
 .fiqueconect,
 .needHelp,
 .form {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  font-size: 8pt;
+  font-size: 1rem;
 }
+
 .needHelp {
   margin-top: 1rem;
 }
+
 .form {
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
   gap: 0.5rem;
 }
+
 .infoloja {
   font-family: 'Roboto', sans-serif;
-  font-size: 6pt;
+  font-size: 0.7rem;
 }
+
 .form input {
   border: 0;
   padding: 0.3rem 0.3rem;
   background-color: #535151;
   font-family: 'Roboto', sans-serif;
 }
+
 .form input:focus {
   outline: none;
 }
+
 .form button,
 .fiqueconect button {
   border: 0;
@@ -54,4 +62,21 @@
   background-color: #d3d3d3;
   padding: 0.2rem 1rem;
   cursor: pointer;
+}
+
+@media screen and (max-width: 568px) {
+  .containerFooter {
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+  }
+
+  .form {
+    display: none;
+  }
+
+  .infoloja {
+    text-align: center;
+    padding: 0 0.5rem;
+  }
 }
