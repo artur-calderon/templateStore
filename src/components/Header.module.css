@@ -7,6 +7,9 @@ a {
 }
 
 .menu {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
   background-color: #0c0c0c;
   color: #d3d3d3;
   display: flex;
@@ -14,6 +17,23 @@ a {
   justify-content: space-evenly;
   flex-direction: row;
   height: 3rem;
+}
+
+.cartButton {
+  display: flex;
+  flex-direction: row;
+}
+
+.cartQuantity {
+  background-color: red;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
 }
 
 .menu img {

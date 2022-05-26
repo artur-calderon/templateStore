@@ -117,6 +117,10 @@ img {
   justify-content: space-between;
 }
 
+.button_addToCard svg {
+  cursor: pointer;
+}
+
 .button_addToCard div {
   margin-top: 2rem;
 }

@@ -18,11 +18,11 @@ export default function ShoppingCart() {
   const [total, setTotal] = useState(0)
 
   useEffect(() => {
-
     setCartProductsPage(cartProducts)
 
-    if (cartProducts.length > 1)
+    if (cartProducts.length >= 1)
       cartProducts.map(val => {
+        console.log(val);
         if (!val.subtotal) {
           val.subtotal = val.price
           setTotal(prev => prev += Number(val.subtotal))
@@ -74,11 +74,15 @@ export default function ShoppingCart() {
     }
   }
 
+
+
+
   const handleCLick = (index) => {
 
     let algo = cartProductsPage.find(index => index)
     let count = Number(algo.subtotal) - Number(algo.price) * algo.quantidade
     setTotal(count)
+    window.localStorage.removeItem(algo.id)
     deleteProductFromCart(index)
 
   }
@@ -100,7 +104,6 @@ export default function ShoppingCart() {
           {
             cartProductsPage.length > 0 ? (
               cartProductsPage.map((item, index) => {
-
                 return (
 
                   <div className=" item" key={item.id}>

@@ -26,6 +26,7 @@
 }
 
 .border {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   border: 1px solid rgba(177, 175, 175, 0.5);
