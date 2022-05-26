@@ -13,10 +13,15 @@ function ProductProvider({children}){
   const [cartProducts, setCartProducts] = useState({})
 
   useEffect(() => {
-    const cartLocalStorage = window.localStorage.getItem('cart')
+    const cartLocalStorage = {...window.localStorage}
     if(cartLocalStorage){
-      setCartProducts(JSON.parse(cartLocalStorage));
+      let keys = Object.keys(cartLocalStorage)
+      for (let i = 0; i < keys.length; i++) {
+        let items = JSON.parse(window.localStorage.getItem(keys[i]))
+        setCartProducts(items)
+      }
     }
+   
 
    const q = query(collection(db, 'products'));
     const getProducts = onSnapshot(q, res => {
@@ -51,12 +56,13 @@ function ProductProvider({children}){
                 quantidade
               })
               setCartProducts(itensCopy )
-              window.localStorage.setItem('cart',JSON.stringify(itensCopy))
+              for(let i=0; i < itensCopy.length; i++){
+                window.localStorage.setItem(itensCopy[i].id,JSON.stringify(itensCopy))
+              }
               }
           })
       }
         
-        console.log(cartProducts)
     
    
    
