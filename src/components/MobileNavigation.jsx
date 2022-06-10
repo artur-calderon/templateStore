@@ -8,17 +8,21 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 const MobileNavigation = () => {
   const [open, setOpen] = useState(false);
 
+
   const openButton = <GiHamburgerMenu color="white" size='20px' onClick={() => setOpen(!open)} />
 
   const closeButton = <AiFillCloseCircle color="white" size='20px' onClick={() => setOpen(!open)} />
 
 
+
   return (
     <div className={styles.MobileNavigation}>
       {open ? closeButton : openButton}
-      {open && <NavLinks isMobile={open} />}
+      {open && <NavLinks isMobile={open} fecharMenu={setOpen} />}
+
 
     </div>
+
   )
 }
 export default MobileNavigation;

@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <div>
       <div className={styles.menu}>
-        <img src={logoUsemarcas} alt='Logo usemarcas' />
+        <Link to='/'><img src={logoUsemarcas} alt='Logo usemarcas' /></Link>
         <NavBar />
         <div className={styles.cartButton}>
           <Link to='/carrinho'><HiOutlineShoppingBag size="25px" color='white' /></Link>
@@ -22,12 +22,7 @@ export default function Header() {
 
         </div>
       </div>
-      <div className={styles.mainImage}>
-        <div>
-          <h3>Coleção Primavera e Verão disponível</h3>
-          <button>Ver mais</button>
-        </div>
-      </div>
+
     </div >
   )
 }

@@ -22,6 +22,7 @@ export default function Card({ produtos }) {
 
                   <div className="title-product">
                     <h3>{itens.data().title}</h3>
+                    <span>{itens.data().categoria}</span>
                   </div>
                   <div className="description-prod">
                     <p>Description Product tell me how to change playlist height size like 600px in html5 player. player good work now check this link</p>

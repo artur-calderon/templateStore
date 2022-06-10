@@ -3,11 +3,17 @@ import React, { useContext, useState, useEffect } from 'react'
 import { ProductContext } from '../contexts/products';
 import { Link } from 'react-router-dom';
 
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 import './ShoppingCart.css'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import Header from './Header';
 import Footer from './Footer';
+import Modal from './Modal';
+import Promotion from './Promotion';
 
 
 export default function ShoppingCart() {
@@ -16,13 +22,23 @@ export default function ShoppingCart() {
   const { cartProducts, deleteProductFromCart } = useContext(ProductContext)
   const [cartProductsPage, setCartProductsPage] = useState({})
   const [total, setTotal] = useState(0)
+  const [openCondicional, setOpenCondicional] = useState(false)
+
+  // form data 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [endereco, setEndereco] = useState('');
+
+
+  const Alert = withReactContent(Swal)
 
   useEffect(() => {
     setCartProductsPage(cartProducts)
-
     if (cartProducts.length >= 1)
       cartProducts.map(val => {
-        console.log(val);
+        // console.log(val);
         if (!val.subtotal) {
           val.subtotal = val.price
           setTotal(prev => prev += Number(val.subtotal))
@@ -75,9 +91,7 @@ export default function ShoppingCart() {
   }
 
 
-
-
-  const handleCLick = (index) => {
+  const deleteItem = (index) => {
 
     let algo = cartProductsPage.find(index => index)
     let count = Number(algo.subtotal) - Number(algo.price) * algo.quantidade
@@ -120,7 +134,7 @@ export default function ShoppingCart() {
                       <span className="border">{item.quantidade}</span>
                       <span className="border" onClick={(e) => plusProducts(e, item.id)}>+</span>
                     </div>
-                    <div className="priceItem"><span>Subtotal: </span>{item.subtotal ? item.subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) : 'R$ ' + item.price} <span className="close" onClick={() => handleCLick(index)} >&#10005;</span></div>
+                    <div className="priceItem"><span>Subtotal: </span>{item.subtotal ? item.subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) : 'R$ ' + Number(item.price).toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })} <span className="close" onClick={() => deleteItem(index)} >&#10005;</span></div>
                   </div>
 
                 )
@@ -139,27 +153,82 @@ export default function ShoppingCart() {
             <div className="col" style={{ paddingLeft: 0 }}>ITENS {!cartProducts.length ? 0 : null}</div>
           </div>
           {/* Adicionar consulta de frete ############# */}
-          {/* <form>
-            <p>SHIPPING</p> <select>
+          <form>
+            <p>Frete</p> <select>
               <option className="text-muted">Standard-Delivery- &euro;5.00</option>
             </select>
-            <p>GIVE CODE</p> <input id="code" placeholder="Enter your code" />
-          </form> */}
+            <p>Código Promocional</p> <input id="code" placeholder="Digite seu código..." />
+          </form>
           <div className="row" >
             <div className="col">TOTAL</div>
             <div className="col">{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</div>
           </div>
           <button className="btn">COMPRAR</button>
-          <button className="btn">CONDICIONAL</button>
+          <button className="btn" onClick={() => cartProductsPage.length > 0 ? setOpenCondicional(!openCondicional) : null}>CONDICIONAL</button>
         </div>
       </div >
     )
 
   }
 
+  function Condicional(e) {
+    e.preventDefault();
+    console.log(name, email, telefone, cpf, endereco)
+    addDoc(collection(db, 'clientes'), {
+      name,
+      email,
+      cpf,
+      telefone,
+      endereco
+    }).then(res => {
+
+      if (cartProductsPage.length > 0) {
+        addDoc(collection(db, 'pedidos'), {
+          cartProductsPage,
+          total,
+          cpf,
+          condicional: openCondicional
+        }).then(res => {
+
+          if (res)
+            Alert.fire({
+              title: 'Pedido Realizado',
+              icon: 'success',
+              text: 'Aguarde que entraremos em contato!',
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading()
+              }
+
+            })
+          setOpenCondicional(false)
+          setCartProductsPage({})
+          window.localStorage.clear()
+        })
+
+
+      }
+    })
+  }
+
   return (
     <>
+      {openCondicional && <Modal closer={setOpenCondicional}>
+        <div className="form-style-8">
+          <h2>Insira suas Infomações</h2>
+          <form onSubmit={(e) => Condicional(e)}>
+            <input type="text" name="name" onChange={(e) => setName(e.target.value)} required placeholder="Nome Completo" />
+            <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} required placeholder="Email" />
+            <input type="number" name="cpf" onChange={(e) => setCpf(e.target.value)} required placeholder="CPF" />
+            <input type="number" name="telefone" onChange={(e) => setTelefone(e.target.value)} required placeholder="Telefone" />
+            <input type="text" name="endereco" onChange={(e) => setEndereco(e.target.value)} required placeholder="Endereço" />
+            <input type="submit" value="Pedir Condicional" />
+          </form>
+        </div>
+      </Modal>}
       <Header />
+      <Promotion />
       <Cart />
       <Footer />
     </>
