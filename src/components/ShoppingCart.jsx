@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import axios from 'axios';
 
 import './ShoppingCart.css'
 import Swal from 'sweetalert2'
@@ -89,6 +90,28 @@ export default function ShoppingCart() {
       setCartProductsPage(newArray)
     }
   }
+  function pagar(item) {
+    let items = [];
+    for (let i = 0; i < item.length; i++) {
+      items.push({
+        "title": item[i].title,
+        "quantity": item[i].quantidade,
+        "currency_id": "BRL",
+        "unit_price": Number(item[i].price),
+        "picture_url": item[i].url
+      })
+    }
+    axios.post(`https://api.mercadopago.com/checkout/preferences?access_token=${process.env.REACT_APP_ACCESS_TOKEN}`, {
+      items,
+    }).then(res => {
+      console.log(res.status)
+      if (res.status = '201') {
+        window.open(res.data.sandbox_init_point, '_blank', 'noopener,noreferrer')
+      }
+    })
+
+  }
+
 
 
   const deleteItem = (index) => {
@@ -163,7 +186,7 @@ export default function ShoppingCart() {
             <div className="col">TOTAL</div>
             <div className="col">{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</div>
           </div>
-          <button className="btn">COMPRAR</button>
+          <button className="btn" onClick={() => cartProductsPage.length > 0 ? pagar(cartProductsPage) : null}>COMPRAR</button>
           <button className="btn" onClick={() => cartProductsPage.length > 0 ? setOpenCondicional(!openCondicional) : null}>CONDICIONAL</button>
         </div>
       </div >
