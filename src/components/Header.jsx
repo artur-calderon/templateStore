@@ -14,12 +14,11 @@ export default function Header() {
   return (
     <div>
       <div className={styles.menu}>
-        <Link to='/'><img src={logoUsemarcas} alt='Logo usemarcas' /></Link>
+        <Link to='/' className={styles.img_logo}><img src={logoUsemarcas} alt='Logo usemarcas' /></Link>
         <NavBar />
         <div className={styles.cartButton}>
           <Link to='/carrinho'><HiOutlineShoppingBag size="25px" color='white' /></Link>
           {cartProducts.length >= 1 ? <span className={styles.cartQuantity}>{cartProducts.length}</span> : null}
-
         </div>
       </div>
 

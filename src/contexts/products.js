@@ -1,6 +1,6 @@
 import React,{createContext, useState,useEffect} from "react";
 import { db } from '../firebase'
-import { collection, query, onSnapshot } from 'firebase/firestore'
+import { collection, query, onSnapshot, where,getDocs} from 'firebase/firestore'
 
 export const ProductContext = createContext({});
 
@@ -16,9 +16,11 @@ function ProductProvider({children}){
     const cartLocalStorage = {...window.localStorage}
     if(cartLocalStorage){
       let keys = Object.keys(cartLocalStorage)
+      let localStorageItems = []
       for (let i = 0; i < keys.length; i++) {
         let items = JSON.parse(window.localStorage.getItem(keys[i]))
-        setCartProducts(items)
+        localStorageItems.push(items)
+        setCartProducts(localStorageItems)
       }
     }
    
@@ -30,7 +32,26 @@ function ProductProvider({children}){
     return getProducts;
   }, [])
 
+  function filter(category){
 
+    if(category == null){
+      const q = query(collection(db, 'products'));
+    const getProducts = onSnapshot(q, res => {
+      setProducts(res.docs)
+    })
+    }else{
+    const dbRef = collection(db, 'products');
+    const q = query(dbRef,where('categoria','==',category));
+    const getProducts = getDocs(q);
+    getProducts.then(res =>{
+      if(res.docs.length > 0){
+        setProducts(res.docs)
+      }else{
+        setProducts({})
+      }
+    })
+  }
+}
 
   let quantidade = 1;
 
@@ -39,8 +60,6 @@ function ProductProvider({children}){
     const duplicated = newArray.find(item => item.id === id);
    
     if(duplicated){
-        // duplicated.quantidade += 1
-        // duplicated.price *= duplicated.quantidade
         return
     }else{
       products.map(item =>{
@@ -55,10 +74,12 @@ function ProductProvider({children}){
                 category:item.data().categoria,
                 quantidade
               })
-              setCartProducts(itensCopy )
               for(let i=0; i < itensCopy.length; i++){
-                window.localStorage.setItem(itensCopy[i].id,JSON.stringify(itensCopy))
+                if(item.id === itensCopy[i].id)
+                window.localStorage.setItem(item.id,JSON.stringify(itensCopy[i]))
               }
+              setCartProducts(itensCopy)
+              
               }
           })
       }
@@ -76,7 +97,7 @@ function ProductProvider({children}){
     setCartProducts(copyProducts)
   }
   return(
-    <ProductContext.Provider value={{products, addToCart,cartProducts,deleteProductFromCart}}>
+    <ProductContext.Provider value={{products, addToCart,cartProducts,deleteProductFromCart,filter}}>
       {children}
     </ProductContext.Provider>
   )

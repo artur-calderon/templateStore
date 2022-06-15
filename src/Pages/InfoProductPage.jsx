@@ -9,6 +9,7 @@ import Footer from '../components/Footer'
 
 export default function InfoProductPage() {
   let { id } = useParams();
+  document.title = 'Usemarcas | Informações do produto'
   return (
     <>
       <Header />

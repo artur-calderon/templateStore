@@ -24,9 +24,12 @@ export default function Main() {
     return getCategory
   }, [])
 
-  function changeStyleAndFilterCategory(category) {
+  function changeStyleAndFilterCategory(e, category) {
+    console.log(e.target.firstChild.nodeValue)
+    let clicked = e.target.firstChild.nodeValue;
     filter(category)
-    setCategoryClicked('categoryClicked')
+    setCategoryClicked(clicked)
+    console.log(categoryClicked);
   }
 
   return (
@@ -36,10 +39,11 @@ export default function Main() {
         <div className={styles.filter}>
           <h4>Filtrar produtos por categoria</h4>
           <div className={styles.category}>
+            <span className={styles.reset} onClick={(e) => changeStyleAndFilterCategory(e, null)}>Todos</span>
             {
               category.map((cat) => {
                 return (
-                  <li key={cat.id} className={categoryClicked} onClick={() => changeStyleAndFilterCategory(cat.data().newcategory)}>{cat.data().newcategory}</li>
+                  <li key={cat.id} className={cat.data().newcategory == categoryClicked ? styles.cat : null} onClick={(e) => changeStyleAndFilterCategory(e, cat.data().newcategory)}>{cat.data().newcategory}</li>
                 )
               })
             }

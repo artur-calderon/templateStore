@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 
 
 export default function Home() {
+    document.title = 'Usemarcas | Home'
     return (
         <div>
             <Header />
