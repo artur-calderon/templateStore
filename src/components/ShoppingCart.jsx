@@ -102,7 +102,7 @@ export default function ShoppingCart() {
         "picture_url": item[i].url
       })
     }
-    axios.post(`https://api.mercadopago.com/checkout/preferences?access_token=${process.env.REACT_APP_ACCESS_TOKEN}`, {
+    axios.post('https://api.mercadopago.com/checkout/preferences?access_token=TEST-8977151916858959-060220-c512d18edbec866299588d8145a61a6b-157617958', {
       items,
     }).then(res => {
       console.log(res.status)
