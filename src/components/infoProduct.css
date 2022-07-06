@@ -2,7 +2,7 @@
 /*COLORS*/
 /*********************************************/
 body {
-  font-family: "Titillium Web", sans-serif;
+  font-family: var(--font-padrao);
   font-weight: 400;
   font-size: 14px;
   min-width: 320px;
@@ -17,10 +17,7 @@ body {
   padding: 5rem;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
+
 
 .productCard_block {
   position: relative;
@@ -47,7 +44,7 @@ img {
 
 .block_product {
   position: relative;
-  width: 100%;
+  width: 80%;
 }
 
 .block_product__advantagesProduct {
@@ -107,6 +104,13 @@ img {
   color: #a2a9ad;
   font-size: 12px;
 }
+.info{
+  width: 50%;
+}
+.info .swiper-slide img{
+  object-fit: cover;
+  width: 100%;
+}
 
 .button_addToCard {
   margin-top: 2rem;
@@ -135,8 +139,8 @@ img {
     padding: 0;
   }
 
-  .imageProduct {
-    width: 15rem;
+  .info {
+    width: 18rem;
   }
 
 }

@@ -17,7 +17,7 @@ export default function Header() {
         <Link to='/' className={styles.img_logo}><img src={logoUsemarcas} alt='Logo usemarcas' /></Link>
         <NavBar />
         <div className={styles.cartButton}>
-          <Link to='/carrinho'><HiOutlineShoppingBag size="25px" color='white' /></Link>
+          <Link to='/carrinho'><HiOutlineShoppingBag size="25px" className={styles.cartButtonColor} /></Link>
           {cartProducts.length >= 1 ? <span className={styles.cartQuantity}>{cartProducts.length}</span> : null}
         </div>
       </div>

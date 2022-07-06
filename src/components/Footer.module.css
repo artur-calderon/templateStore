@@ -1,13 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
+a {
+  text-decoration: none;
+  color: inherit;
+
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  color: green;
+}
+
 .container {
   width: 100%;
-  background-color: rgb(48, 49, 50);
+  background-color: var(--footer-background-color);
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  color: #fff;
+  color: var(--footer-text-color);
   padding: 0.8rem 0;
   gap: 1rem;
 }
@@ -23,7 +37,7 @@
 .fiqueconect,
 .needHelp,
 .form {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-padrao);
   font-weight: 300;
   font-size: 1rem;
 }
@@ -40,7 +54,7 @@
 }
 
 .infoloja {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-padrao);
   font-size: 0.7rem;
 }
 
@@ -48,7 +62,7 @@
   border: 0;
   padding: 0.3rem 0.3rem;
   background-color: #535151;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-padrao);
 }
 
 .form input:focus {
@@ -58,7 +72,7 @@
 .form button,
 .fiqueconect button {
   border: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-padrao);
   background-color: #d3d3d3;
   padding: 0.2rem 1rem;
   cursor: pointer;

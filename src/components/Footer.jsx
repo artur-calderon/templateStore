@@ -1,104 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from './Footer.module.css'
 
-import { Link, useNavigate } from 'react-router-dom'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-import {
-  signInWithEmailAndPassword,
-  getAuth,
-  onAuthStateChanged,
-  signOut
-} from 'firebase/auth'
-import { app } from '../firebase'
+
 
 export default function Footer() {
-  const [isLogado, setIsLogado] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassowrd] = useState('')
-  const auth = getAuth(app)
-  const history = useNavigate()
 
-  const MyAlert = withReactContent(Swal)
 
-  useEffect(() => {
-    const logado = onAuthStateChanged(auth, user => {
-      user ? setIsLogado(true) : setIsLogado(false)
-    })
 
-    return logado
-  })
-
-  function LogOut() {
-    signOut(auth)
-      .then(() => {
-        MyAlert.fire({
-          title: 'Deslogado',
-          text: 'Tchau Tchau! :)'
-        })
-        history('/')
-      })
-      .catch(err => console.log(err))
-  }
-  function Login() {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(response => {
-        console.log(response)
-        if (response) {
-          MyAlert.fire({
-            icon: 'success',
-            title: 'Logado com sucesso'
-          })
-          setPassowrd('')
-          setEmail('')
-        }
-      })
-      .catch(err => {
-        MyAlert.fire({
-          icon: 'error',
-          title: 'Algo deu errado',
-          text: err
-        })
-      })
-  }
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.containerFooter}>
           <div className={styles.form}>
-            {isLogado ? (
-              <>
-                <h3>Logado</h3>
-                <ul>
-                  <Link to="/cadastrar_produtos">
-                    <li>Cadastrar Produtos</li>
-                  </Link>
-                  <li>Ver Produtos</li>
-                  <li>Configurações</li>
-                  <button onClick={LogOut}>Sair</button>
-                </ul>
-              </>
-            ) : (
-              <>
-                <label>Área administrativa</label>
-                <input
-                  type="email"
-                  placeholder="Insira o seu e-mail aqui"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="Insira o sua senha"
-                  value={password}
-                  onChange={e => setPassowrd(e.target.value)}
-                />
-                <button type="submit" onClick={Login}>
-                  Entrar
-                </button>
-              </>
-            )}
+            <a href='https://template-store.vercel.app' target='_blank'><p>Área administrativa</p></a>
           </div>
           {/* <form className={styles.form}>
             <label>Faça parte</label>

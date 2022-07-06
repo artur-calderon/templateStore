@@ -4,17 +4,19 @@ import { ProductContext } from '../contexts/products';
 import { Link } from 'react-router-dom';
 
 import { db } from '../firebase';
-import { collection, addDoc } from 'firebase/firestore';
-import axios from 'axios';
+import { collection, addDoc, where, onSnapshot, query } from 'firebase/firestore';
 
 import './ShoppingCart.css'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
+
+
 import Header from './Header';
 import Footer from './Footer';
 import Modal from './Modal';
 import Promotion from './Promotion';
+import axios from 'axios';
 
 
 export default function ShoppingCart() {
@@ -24,6 +26,7 @@ export default function ShoppingCart() {
   const [cartProductsPage, setCartProductsPage] = useState({})
   const [total, setTotal] = useState(0)
   const [openCondicional, setOpenCondicional] = useState(false)
+  const [openCompra, setOpenCompra] = useState(false)
 
   // form data 
   const [name, setName] = useState('');
@@ -91,7 +94,10 @@ export default function ShoppingCart() {
       setCartProductsPage(newArray)
     }
   }
-  function pagar(item) {
+
+  function Pagar(item, e) {
+    e.preventDefault()
+    console.log(item)
     let items = [];
     for (let i = 0; i < item.length; i++) {
       items.push({
@@ -102,12 +108,13 @@ export default function ShoppingCart() {
         "picture_url": item[i].url
       })
     }
-    axios.post('https://api.mercadopago.com/checkout/preferences?access_token=TEST-8977151916858959-060220-c512d18edbec866299588d8145a61a6b-157617958', {
+    axios.post(`https://api.mercadopago.com/checkout/preferences?access_token=TEST-8977151916858959-060220-c512d18edbec866299588d8145a61a6b-157617958`, {
       items,
     }).then(res => {
-      console.log(res.status)
-      if (res.status = '201') {
+      if (res.status === 201) {
         window.open(res.data.sandbox_init_point, '_blank', 'noopener,noreferrer')
+        cadastraPedido(res.data.id)
+        cadastraCliente()
       }
     })
 
@@ -124,6 +131,9 @@ export default function ShoppingCart() {
     deleteProductFromCart(index)
 
   }
+
+
+
 
   function Cart() {
 
@@ -187,7 +197,7 @@ export default function ShoppingCart() {
             <div className="col">TOTAL</div>
             <div className="col">{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</div>
           </div>
-          <button className="btn" onClick={() => cartProductsPage.length > 0 ? pagar(cartProductsPage) : null}>COMPRAR</button>
+          <button className="btn" onClick={() => cartProductsPage.length > 0 ? setOpenCompra(true) : null}>COMPRAR</button>
           <button className="btn" onClick={() => cartProductsPage.length > 0 ? setOpenCondicional(!openCondicional) : null}>CONDICIONAL</button>
         </div>
       </div >
@@ -195,49 +205,68 @@ export default function ShoppingCart() {
 
   }
 
-  function Condicional(e) {
-    e.preventDefault();
-    console.log(name, email, telefone, cpf, endereco)
-    addDoc(collection(db, 'clientes'), {
-      name,
-      email,
-      cpf,
-      telefone,
-      endereco
-    }).then(res => {
 
-      if (cartProductsPage.length > 0) {
-        addDoc(collection(db, 'pedidos'), {
-          cartProductsPage,
-          total,
+
+  function cadastraCliente() {
+
+    const q = query(collection(db, 'clientes'), where('cpf', '==', cpf));
+    onSnapshot(q, res => {
+      if (res.size === 0) {
+        addDoc(collection(db, 'clientes'), {
+          name,
+          email,
           cpf,
-          condicional: openCondicional
-        }).then(res => {
-
-          if (res)
-            Alert.fire({
-              title: 'Pedido Realizado',
-              icon: 'success',
-              text: 'Aguarde que entraremos em contato!',
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: () => {
-                Swal.showLoading()
-              }
-
-            })
-          setOpenCondicional(false)
-          setCartProductsPage({})
-          window.localStorage.clear()
-        })
-
-
+          telefone,
+          endereco
+        }).then(res => { if (res) console.log('Cliente Cadastrado') })
+      } else {
+        console.log('cliente já cadastrado')
       }
     })
   }
 
+  function cadastraPedido(id) {
+
+    if (cartProductsPage.length > 0) {
+      addDoc(collection(db, 'pedidos'), {
+        cartProductsPage,
+        total,
+        cpf,
+        condicional: openCondicional,
+        id
+
+      }).then(res => {
+        console.log(res)
+        if (res)
+          Alert.fire({
+            title: 'Pedido Realizado',
+            icon: 'success',
+            text: 'Aguarde que entraremos em contato!',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+            }
+
+          })
+        setOpenCondicional(false)
+        setCartProductsPage({})
+        window.localStorage.clear()
+      })
+    }
+
+
+  }
+
+  function Condicional(e) {
+    e.preventDefault();
+    cadastraCliente()
+    cadastraPedido(null)
+  }
+
   return (
     <>
+      {/* modal de condicional */}
       {openCondicional && <Modal closer={setOpenCondicional}>
         <div className="form-style-8">
           <h2>Insira suas Infomações</h2>
@@ -248,6 +277,21 @@ export default function ShoppingCart() {
             <input type="number" name="telefone" onChange={(e) => setTelefone(e.target.value)} required placeholder="Telefone" />
             <input type="text" name="endereco" onChange={(e) => setEndereco(e.target.value)} required placeholder="Endereço" />
             <input type="submit" value="Pedir Condicional" />
+          </form>
+        </div>
+      </Modal>}
+
+      {/* modal de compra */}
+      {openCompra && <Modal closer={setOpenCompra}>
+        <div className="form-style-8">
+          <h2>Insira suas Infomações</h2>
+          <form onSubmit={(e) => Pagar(cartProductsPage, e)}>
+            <input type="text" name="name" onChange={(e) => setName(e.target.value)} required placeholder="Nome Completo" />
+            <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} required placeholder="Email" />
+            <input type="number" name="cpf" onChange={(e) => setCpf(e.target.value)} required placeholder="CPF" />
+            <input type="number" name="telefone" onChange={(e) => setTelefone(e.target.value)} required placeholder="Telefone" />
+            <input type="text" name="endereco" onChange={(e) => setEndereco(e.target.value)} required placeholder="Endereço" />
+            <input type="submit" value="Comprar" />
           </form>
         </div>
       </Modal>}

@@ -5,6 +5,7 @@
 .card {
   display: flex;
   flex-direction: row;
+  font-family: var(--font-padrao);
   margin: 0 auto;
   max-width: 950px;
   width: 90%;
@@ -112,7 +113,7 @@ p {
 /* ################# FORM CSS ############################### */
 
 .form-style-8 {
-  font-family: 'Open Sans Condensed', arial, sans;
+  font-family: var(--font-padrao);
   width: 500px;
   padding: 30px;
   background: #FFFFFF;
@@ -126,7 +127,7 @@ p {
 .form-style-8 h2 {
   background: #4D4D4D;
   text-transform: uppercase;
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: var(--font-padrao);
   color: #797979;
   font-size: 18px;
   font-weight: 100;
@@ -176,7 +177,7 @@ p {
   display: inline-block;
   cursor: pointer;
   color: #FFFFFF;
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: var(--font-padrao);
   font-size: 14px;
   padding: 8px 18px;
   text-decoration: none;

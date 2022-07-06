@@ -10,16 +10,15 @@
   align-items: center;
 }
 
-.swiper {
+.mainImage .swiper {
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
+.mainImage .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
-
   /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -37,7 +36,7 @@
 
 
 
-.swiper-slide img {
+.mainImage .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:400,400i,700,700i');
-
 .containercard {
   display: flex;
   flex-direction: row;
@@ -8,7 +6,7 @@
   justify-content: center;
   /* max-width: 800px; */
   width: 100%;
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-padrao);
 }
 
 

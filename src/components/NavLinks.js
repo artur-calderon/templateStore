@@ -27,14 +27,14 @@ const NavLinks = (props)=>{
   return(
     <>
     <ul>
-          <Link to='/' style={{ textDecoration: "none", color:"white"}}>
+          <Link to='/' style={{ textDecoration:"none", color:"inherit"}}>
           <div className={styles.item}>
             <li>Home</li>
            {props.isMobile ? arrow : null} 
           </div>
           </Link>
 
-          <Link to='/loja' style={{ textDecoration: "none", color:"white"}}>
+          <Link to='/loja' style={{ textDecoration:"none", color:"inherit"}}>
           <div className={styles.item}>
             <li>Loja</li>
             {props.isMobile ? arrow : null}
@@ -59,9 +59,8 @@ const NavLinks = (props)=>{
               {
                 category.map((cat) => {
                   return (
-                    
-                    <div className={styles.item}>
-                      <li key={cat.id} onClick={() => playFilter(cat.data().newcategory)} >{cat.data().newcategory}</li>
+                    <div className={styles.item} key={cat.id}>
+                      <li  onClick={() => playFilter(cat.data().newcategory)} >{cat.data().newcategory}</li>
                       {props.isMobile ? arrow : null}
                     </div>
                     

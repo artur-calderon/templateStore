@@ -33,7 +33,7 @@ export default function Main() {
   }
 
   return (
-    <>
+    <div className={styles.body}>
       <Promotion />
       <div className={styles.container}>
         <div className={styles.filter}>
@@ -43,7 +43,7 @@ export default function Main() {
             {
               category.map((cat) => {
                 return (
-                  <li key={cat.id} className={cat.data().newcategory == categoryClicked ? styles.cat : null} onClick={(e) => changeStyleAndFilterCategory(e, cat.data().newcategory)}>{cat.data().newcategory}</li>
+                  <li key={cat.id} className={cat.data().newcategory === categoryClicked ? styles.cat : null} onClick={(e) => changeStyleAndFilterCategory(e, cat.data().newcategory)}>{cat.data().newcategory}</li>
                 )
               })
             }
@@ -60,6 +60,6 @@ export default function Main() {
         }
 
       </div>
-    </>
+    </div>
   )
 }

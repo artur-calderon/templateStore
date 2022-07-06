@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&display=swap');
+
+.temaPadrao {
+  --header-background-color: #080808;
+  --header-text-color: #d3d3d3;
+  --header-storeIcon-color: #fff;
+
+  --main-background-color: #fff;
+
+  --footer-background-color: #303132;
+  --footer-text-color: #fff;
+
+  --font-padrao: 'Roboto', sans-serif;
+}
+
+/* 'Roboto', sans-serif 'Fascinate', cursive */

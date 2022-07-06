@@ -8,20 +8,29 @@ import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import { ProductContext } from '../contexts/products'
 import Promotion from './Promotion'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper';
+import { Pagination } from "swiper";
+import 'swiper/css'
+import "swiper/css/navigation";
 
 
 
 export default function InfoProduct({ id }) {
   const [infoProduct, setInfoProduct] = useState([]);
+  const [url, setUrl] = useState([]);
   const history = useNavigate()
   const { addToCart } = useContext(ProductContext);
 
   useEffect(() => {
+
     const docRef = doc(db, 'products', id);
     const getInfoProduct = getDoc(docRef)
 
     getInfoProduct.then(val => {
       setInfoProduct(val.data())
+      console.log(val.data().urls)
+      setUrl(val.data().urls)
 
       if (val._document === null) {
         alert('Nenhum Produto Encontrado! Redirecionando para página principal')
@@ -42,10 +51,36 @@ export default function InfoProduct({ id }) {
         {
           infoProduct ? (
             <div className="productCard_block">
-              <div className='imageProduct'>
-                <img src={infoProduct.url}>
-                </img>
-              </div>
+
+              <Swiper
+                spaceBetween={2}
+                slidesPerView={1}
+                navigation={true}
+                modules={[Pagination]}
+                pagination={true}
+                breakpoints={{
+                  // when window width is >= 640px
+                  640: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                  },
+                  768: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                  }
+                }}
+                className='info'
+              >
+                {
+                  url.map(url => {
+                    return (
+                      <SwiperSlide key={url.id}>
+                        <img src={url} alt='Produto' key={url.id} />
+                      </SwiperSlide>
+                    )
+                  })
+                }
+              </Swiper>
               <div className="block_product">
                 <p className="block_model">
                   <span className="block_model__text">Categoria: </span>
@@ -54,10 +89,7 @@ export default function InfoProduct({ id }) {
                 <h2 className="block_name block_name__mainName">{infoProduct.title}<sup>&reg; </sup></h2>
                 <div className="block_informationAboutDevice">
                   <div className="block_descriptionInformation">
-                    <span>Peak performance with active noise cancelation. Sennheiser's new MOMENTUM Wireless
-                      - Closed circumauralheadphone featuring <a className="block_product__link"
-                        href="#">Bluetooth<sup>&reg;</sup></a>  wireless technology and NoiseGard Hybrid active noise cancelation
-                    </span>
+                    <span>{infoProduct.descricao}</span>
                   </div>
 
 
