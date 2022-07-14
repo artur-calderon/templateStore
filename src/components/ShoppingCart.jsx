@@ -153,11 +153,10 @@ export default function ShoppingCart() {
             cartProductsPage.length > 0 ? (
               cartProductsPage.map((item, index) => {
                 return (
-
                   <div className=" item" key={item.id}>
                     <div className="itemImageAndTitle">
                       <div className="category">{item.category}</div>
-                      <div className="imageItem" ><img className="img-fluid" src={item.url} alt='Foto Produto' /></div>
+                      <div className="imageItem" ><img className="img-fluid" src={item.url[0]} alt='Foto Produto' /></div>
                       <div className="titleItem">
                         <div>{item.title}</div>
                       </div>

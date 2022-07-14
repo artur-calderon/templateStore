@@ -9,8 +9,7 @@ import { BiLeftArrowAlt } from 'react-icons/bi'
 import { ProductContext } from '../contexts/products'
 import Promotion from './Promotion'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper';
-import { Pagination } from "swiper";
+import { Pagination, Navigation } from "swiper";
 import 'swiper/css'
 import "swiper/css/navigation";
 
@@ -29,7 +28,6 @@ export default function InfoProduct({ id }) {
 
     getInfoProduct.then(val => {
       setInfoProduct(val.data())
-      console.log(val.data().urls)
       setUrl(val.data().urls)
 
       if (val._document === null) {
@@ -56,7 +54,7 @@ export default function InfoProduct({ id }) {
                 spaceBetween={2}
                 slidesPerView={1}
                 navigation={true}
-                modules={[Pagination]}
+                modules={[Pagination, Navigation]}
                 pagination={true}
                 breakpoints={{
                   // when window width is >= 640px

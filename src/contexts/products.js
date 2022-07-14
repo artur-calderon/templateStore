@@ -71,7 +71,7 @@ function ProductProvider({ children }) {
             title: item.data().title,
             descricao: item.data().descricao,
             price: item.data().preco,
-            url: item.data().url,
+            url: item.data().urls,
             category: item.data().categoria,
             quantidade
           })
