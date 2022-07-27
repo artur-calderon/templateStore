@@ -8,6 +8,9 @@ body {
   min-width: 320px;
   position: relative;
 }
+*{
+  font-family: var(--font-padrao);
+}
 
 .main {
   display: flex;
@@ -96,6 +99,7 @@ body {
   color: #f1425d;
   font-size: 26px;
   font-weight: 600;
+  font-family: var(--font-padrao);
 }
 
 .block_price__shipping {

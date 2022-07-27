@@ -105,16 +105,17 @@ export default function ShoppingCart() {
         "quantity": item[i].quantidade,
         "currency_id": "BRL",
         "unit_price": Number(item[i].price),
-        "picture_url": item[i].url
+
       })
     }
     axios.post(`https://api.mercadopago.com/checkout/preferences?access_token=TEST-8977151916858959-060220-c512d18edbec866299588d8145a61a6b-157617958`, {
       items,
     }).then(res => {
+      console.log(res)
       if (res.status === 201) {
         window.open(res.data.sandbox_init_point, '_blank', 'noopener,noreferrer')
-        cadastraPedido(res.data.id)
         cadastraCliente()
+        cadastraPedido(res.data.id)
       }
     })
 
@@ -225,14 +226,20 @@ export default function ShoppingCart() {
   }
 
   function cadastraPedido(id) {
-
+    const date = new Date();
+    const dia = String(date.getDate()).padStart(2, '0');
+    const mes = String(date.getMonth() + 1).padStart(2, '0')
+    const ano = date.getFullYear();
+    const dataAtual = `${dia}/${mes}/${ano}`;
+    console.log(dataAtual)
     if (cartProductsPage.length > 0) {
       addDoc(collection(db, 'pedidos'), {
         cartProductsPage,
         total,
         cpf,
         condicional: openCondicional,
-        id
+        id,
+        dataAtual
 
       }).then(res => {
         console.log(res)
@@ -249,6 +256,7 @@ export default function ShoppingCart() {
 
           })
         setOpenCondicional(false)
+        setOpenCompra(false)
         setCartProductsPage({})
         window.localStorage.clear()
       })
