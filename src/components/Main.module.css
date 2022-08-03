@@ -53,6 +53,8 @@
   cursor: pointer;
 }
 .content {
+  display: flex;
+  align-items: flex-start;
   width: 80%;
 }
 .category li:hover {

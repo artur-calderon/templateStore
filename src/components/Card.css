@@ -1,14 +1,14 @@
 .containercard {
+  /* background-color: blue; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: center;
+  justify-content: flex-start;
   /* max-width: 800px; */
   width: 100%;
   font-family: var(--font-padrao);
 }
-
 
 .cardContainer {
   cursor: pointer;
@@ -21,7 +21,6 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   position: relative;
   margin: 20px auto;
-
 }
 
 .imageCard {
@@ -52,7 +51,7 @@
 }
 
 .cardContainer:hover .imageCard img {
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 .cardDescription {
@@ -97,16 +96,13 @@
   font-weight: bold;
 }
 
-
-
-@media (max-width:568px) {
+@media (max-width: 568px) {
   .cardContainer {
     width: 10rem;
     height: 17rem;
     padding: 0 0.5rem;
     margin: 0;
   }
-
 
   .cardContainer:hover .imageCard {
     top: 0;
