@@ -16,13 +16,16 @@ a {
   align-items: center;
   justify-content: space-evenly;
   flex-direction: row;
-  height: 3rem;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+  /* gap: 1rem; */
 }
 
 .cartButton {
   display: flex;
   flex-direction: row-reverse;
   order: 3;
+  gap: 1rem;
 }
 
 .cartQuantity {
@@ -33,7 +36,6 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .cartButtonColor {
@@ -44,32 +46,28 @@ a {
   width: 13rem;
 }
 
-
-
 .menu h1 {
   font-family: var(--font-padrao);
   margin-right: 2rem;
 }
-
+.menu .dropdown {
+  top: -10rem;
+}
 .navbar .hamburgerLines {
   display: none;
 }
-
 
 ul {
   list-style: none;
   display: flex;
   gap: 3rem;
   order: 2;
-
 }
-
 
 ul li {
   font-size: 0.8rem;
   font-family: var(--font-padrao);
 }
-
 
 .NavBar ul .arrow {
   display: none;
@@ -88,10 +86,12 @@ ul li {
 }
 
 @media screen and (max-width: 568px) {
+  .dropdown {
+    display: none;
+  }
   .NavBar .MobileNavigation {
     display: flex;
   }
-
 
   .NavBar .Navigation {
     display: none;
@@ -102,6 +102,7 @@ ul li {
     width: 100%;
     position: fixed;
     z-index: 99;
+    height: 4rem;
   }
 
   .menu .img_logo {
@@ -117,15 +118,13 @@ ul li {
     order: 3;
   }
 
-
-
   .NavBar ul {
     display: flex;
     flex-direction: column;
     position: absolute;
     background-color: #535151;
     right: 0;
-    top: 3rem;
+    top: 4rem;
     width: 100%;
     height: 100vh;
     z-index: 999;
@@ -144,13 +143,11 @@ ul li {
     width: 100%;
   } */
 
-
   .NavBar ul li {
     padding-left: 1.5rem;
     font-size: 1.2rem;
     width: 100%;
   }
-
 
   .NavBar ul .item,
   .NavBar .filter .item {
@@ -163,8 +160,6 @@ ul li {
     align-items: center;
     border-bottom: 1px solid rgb(104, 104, 104);
   }
-
-
 
   .NavBar .category {
     /* background-color: #110583; */
@@ -186,5 +181,4 @@ ul li {
     width: 8rem;
     text-align: center;
   }
-
 }
