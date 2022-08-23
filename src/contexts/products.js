@@ -96,6 +96,7 @@ function ProductProvider({ children }) {
         products,
         addToCart,
         cartProducts,
+        setCartProducts,
         deleteProductFromCart,
         filter
       }}

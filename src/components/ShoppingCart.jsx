@@ -17,23 +17,19 @@ import Footer from './Footer';
 import Modal from './Modal';
 import Promotion from './Promotion';
 import axios from 'axios';
+import { UserContext } from '../contexts/user';
 
 
 export default function ShoppingCart() {
 
 
-  const { cartProducts, deleteProductFromCart } = useContext(ProductContext)
+  const { cartProducts, deleteProductFromCart, setCartProducts } = useContext(ProductContext)
+  const { user } = useContext(UserContext)
   const [cartProductsPage, setCartProductsPage] = useState({})
   const [total, setTotal] = useState(0)
   const [openCondicional, setOpenCondicional] = useState(false)
   const [openCompra, setOpenCompra] = useState(false)
 
-  // form data 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [endereco, setEndereco] = useState('');
 
 
   const Alert = withReactContent(Swal)
@@ -95,9 +91,8 @@ export default function ShoppingCart() {
     }
   }
 
-  function Pagar(item, e) {
-    e.preventDefault()
-    console.log(item)
+  function Pagar(item) {
+
     let items = [];
     for (let i = 0; i < item.length; i++) {
       items.push({
@@ -111,11 +106,10 @@ export default function ShoppingCart() {
     axios.post(`https://api.mercadopago.com/checkout/preferences?access_token=TEST-8977151916858959-060220-c512d18edbec866299588d8145a61a6b-157617958`, {
       items,
     }).then(res => {
-      console.log(res)
+
       if (res.status === 201) {
         window.open(res.data.sandbox_init_point, '_blank', 'noopener,noreferrer')
-        cadastraCliente()
-        cadastraPedido(res.data.id)
+
       }
     })
 
@@ -134,7 +128,19 @@ export default function ShoppingCart() {
   }
 
 
+  function showModal(action) {
+    console.log(cartProductsPage)
+    if (!user) {
+      Alert.fire('Atenção', 'Você precisa estar logado', 'info')
+    } else if (!cartProductsPage.length) {
+      Alert.fire('Atenção', 'Você precisa ter um produto no carrinho', 'info')
+    } else if (action == 'compra') {
+      setOpenCompra(true)
+    } else if (action == 'condicional') {
+      setOpenCondicional(!openCondicional)
 
+    }
+  }
 
   function Cart() {
 
@@ -186,19 +192,16 @@ export default function ShoppingCart() {
           <div className="row">
             <div className="col" style={{ paddingLeft: 0 }}>ITENS {!cartProducts.length ? 0 : null}</div>
           </div>
-          {/* Adicionar consulta de frete ############# */}
           <form>
-            <p>Frete</p> <select>
-              <option className="text-muted">Standard-Delivery- &euro;5.00</option>
-            </select>
+
             <p>Código Promocional</p> <input id="code" placeholder="Digite seu código..." />
           </form>
           <div className="row" >
             <div className="col">TOTAL</div>
             <div className="col">{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</div>
           </div>
-          <button className="btn" onClick={() => cartProductsPage.length > 0 ? setOpenCompra(true) : null}>COMPRAR</button>
-          <button className="btn" onClick={() => cartProductsPage.length > 0 ? setOpenCondicional(!openCondicional) : null}>CONDICIONAL</button>
+          <button className="btn" onClick={() => showModal('compra')}>COMPRAR</button>
+          <button className="btn" onClick={() => showModal('condicional')}>CONDICIONAL</button>
         </div>
       </div >
     )
@@ -207,25 +210,9 @@ export default function ShoppingCart() {
 
 
 
-  function cadastraCliente() {
 
-    const q = query(collection(db, 'clientes'), where('cpf', '==', cpf));
-    onSnapshot(q, res => {
-      if (res.size === 0) {
-        addDoc(collection(db, 'clientes'), {
-          name,
-          email,
-          cpf,
-          telefone,
-          endereco
-        }).then(res => { if (res) console.log('Cliente Cadastrado') })
-      } else {
-        console.log('cliente já cadastrado')
-      }
-    })
-  }
 
-  function cadastraPedido(id) {
+  function cadastraPedido(end) {
     const date = new Date();
     const dia = String(date.getDate()).padStart(2, '0');
     const mes = String(date.getMonth() + 1).padStart(2, '0')
@@ -236,14 +223,15 @@ export default function ShoppingCart() {
       addDoc(collection(db, 'pedidos'), {
         cartProductsPage,
         total,
-        cpf,
+        uid: user.uid,
         condicional: openCondicional,
-        id,
+        enderecoEntrega: end,
         dataAtual
 
       }).then(res => {
-        console.log(res)
-        if (res)
+        if (res) {
+
+
           Alert.fire({
             title: 'Pedido Realizado',
             icon: 'success',
@@ -255,52 +243,29 @@ export default function ShoppingCart() {
             }
 
           })
-        setOpenCondicional(false)
-        setOpenCompra(false)
-        setCartProductsPage({})
-        window.localStorage.clear()
+          setOpenCondicional(false)
+          setOpenCompra(false)
+          setCartProductsPage({})
+          setCartProducts({})
+          window.localStorage.clear()
+        }
       })
     }
 
 
   }
 
-  function Condicional(e) {
-    e.preventDefault();
-    cadastraCliente()
-    cadastraPedido(null)
-  }
+
 
   return (
     <>
       {/* modal de condicional */}
-      {openCondicional && <Modal closer={setOpenCondicional}>
-        <div className="form-style-8">
-          <h2>Insira suas Infomações</h2>
-          <form onSubmit={(e) => Condicional(e)}>
-            <input type="text" name="name" onChange={(e) => setName(e.target.value)} required placeholder="Nome Completo" />
-            <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} required placeholder="Email" />
-            <input type="number" name="cpf" onChange={(e) => setCpf(e.target.value)} required placeholder="CPF" />
-            <input type="number" name="telefone" onChange={(e) => setTelefone(e.target.value)} required placeholder="Telefone" />
-            <input type="text" name="endereco" onChange={(e) => setEndereco(e.target.value)} required placeholder="Endereço" />
-            <input type="submit" value="Pedir Condicional" />
-          </form>
-        </div>
+      {openCondicional && <Modal closer={setOpenCondicional} user={user} type='condicional' condicional={cadastraPedido}>
+
       </Modal>}
 
       {/* modal de compra */}
-      {openCompra && <Modal closer={setOpenCompra}>
-        <div className="form-style-8">
-          <h2>Insira suas Infomações</h2>
-          <form onSubmit={(e) => Pagar(cartProductsPage, e)}>
-            <input type="text" name="name" onChange={(e) => setName(e.target.value)} required placeholder="Nome Completo" />
-            <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} required placeholder="Email" />
-            <input type="number" name="cpf" onChange={(e) => setCpf(e.target.value)} required placeholder="CPF" />
-            <input type="number" name="telefone" onChange={(e) => setTelefone(e.target.value)} required placeholder="Telefone" />
-            <input type="text" name="endereco" onChange={(e) => setEndereco(e.target.value)} required placeholder="Endereço" />
-            <input type="submit" value="Comprar" />
-          </form>
-        </div>
+      {openCompra && <Modal closer={setOpenCompra} user={user} type='compra' pagar={() => Pagar(cartProductsPage)} cadastraPedido={cadastraPedido}>
       </Modal>}
       <Header />
       <Promotion />

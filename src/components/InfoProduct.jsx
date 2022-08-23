@@ -70,10 +70,10 @@ export default function InfoProduct({ id }) {
                 className='info'
               >
                 {
-                  url.map(url => {
+                  url.map((url, index) => {
                     return (
-                      <SwiperSlide key={url.id}>
-                        <img src={url} alt='Produto' key={url.id} />
+                      <SwiperSlide key={index}>
+                        <img src={url} alt='Produto' key={index} />
                       </SwiperSlide>
                     )
                   })
