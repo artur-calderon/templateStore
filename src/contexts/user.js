@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { onAuthStateChanged, signInWithRedirect, signOut } from 'firebase/auth'
+import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 import { auth, db, provider } from '../firebase'
 import {
   addDoc,
@@ -49,10 +49,7 @@ function UserProvider({ children }) {
   }, [])
 
   function Auth() {
-    signInWithRedirect(auth, provider).then(result => {
-      alert('Clickou')
-      setUser(result.user)
-    })
+    signInWithPopup(auth, provider)
   }
   function SignOut() {
     signOut(auth)
