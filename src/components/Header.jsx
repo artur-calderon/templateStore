@@ -28,7 +28,7 @@ export default function Header() {
           <Link to='/carrinho'><HiOutlineShoppingBag size="25px" className={styles.cartButtonColor} /></Link>
           {user ?
             <>
-              <span>{user.displayName}</span>
+              <span className={styles.userName}>{user.displayName}</span>
               <div className={styles.profile} onMouseEnter={() => setMenuUserActive(!menuUserActive)} onClick={() => setMenuUserActive(!menuUserActive)}>
                 <CgProfile size="25px" className={styles.cartButtonColor} />
                 {

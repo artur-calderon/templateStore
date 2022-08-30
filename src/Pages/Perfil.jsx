@@ -20,7 +20,6 @@ export default function Perfil() {
     const q = query(collection(db, 'pedidos'), where('uid', '==', user.uid));
     onSnapshot(q, res => {
       setUserPedidos(res.docs)
-      console.log(res.docs)
     })
 
   }, [user])

@@ -98,7 +98,7 @@
 
 @media (max-width: 568px) {
   .cardContainer {
-    width: 10rem;
+    width: 20rem;
     height: 17rem;
     padding: 0 0.5rem;
     margin: 0;
@@ -128,5 +128,9 @@
   .cardDescription .title-product h3 {
     font-size: 0.9rem;
     margin-top: 2rem;
+  }
+  .containercard {
+    justify-content: center;
+    width: 100%;
   }
 }
