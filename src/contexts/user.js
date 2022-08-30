@@ -50,6 +50,7 @@ function UserProvider({ children }) {
 
   function Auth() {
     signInWithRedirect(auth, provider).then(result => {
+      alert('Clickou')
       setUser(result.user)
     })
   }
