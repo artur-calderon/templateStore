@@ -49,7 +49,9 @@ function UserProvider({ children }) {
   }, [])
 
   function Auth() {
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider).then(res => {
+      setUser(res.user)
+    })
   }
   function SignOut() {
     signOut(auth)

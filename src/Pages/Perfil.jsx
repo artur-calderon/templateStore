@@ -4,23 +4,25 @@ import Footer from '../components/Footer'
 import { UserContext } from '../contexts/user';
 import { onSnapshot, collection, query, where, } from 'firebase/firestore';
 import { db } from '../firebase';
-import './perfil.css';
+import './pedidos.css';
 
 
 export default function Perfil() {
-  document.title = 'Usemarcas | Meu perfil'
+  document.title = 'Usemarcas | Perfil'
   const { user } = useContext(UserContext)
-  const [userPedidos, setUserPedidos] = useState({})
+  const [userInfo, setUserInfo] = useState({})
 
   useEffect(() => {
     if (!user) {
       alert('Você não está logado!')
       window.location.href = '/'
+
     }
-    const q = query(collection(db, 'pedidos'), where('uid', '==', user.uid));
-    onSnapshot(q, res => {
-      setUserPedidos(res.docs)
+    const u = query(collection(db, 'clientes'), where('uid', '==', user.uid))
+    onSnapshot(u, res => {
+      setUserInfo(res.docs)
     })
+
 
   }, [user])
   return (
@@ -33,48 +35,20 @@ export default function Perfil() {
             Bem vindo <h3>{user.displayName}</h3>
 
           </div>
-          <div className='userPedidos'>
-            <h4>Meus pedidos:</h4>
-            {
-              userPedidos.length > 0 ? (
-                userPedidos.map(ped => {
-                  const prod = ped.data().cartProductsPage;
 
-                  return (
-                    prod.map(p => {
-                      return (
-                        <div className='pedidoSingle'>
-                          <div className='imageProd'>
-                            <img src={p.url} alt={p.title} />
-                            <div className='infoPedido'>
-                              <span><b>{p.title}</b></span>
-                              <span><b>Data:</b> {ped.data().dataAtual}</span>
-                              <span><b>Endereço de entrega:</b><br /> {ped.data().enderecoEntrega}</span>
-                              <span><b>Itens:</b><br /> {p.quantidade}</span>
-                              <span><b> Tipo do pedido: </b> {ped.data().condicional ? 'Condicional' : 'Compra'}</span>
-
-                            </div>
-                          </div>
-                          <span><b>Total:</b> {ped.data().total}</span>
-                        </div>
-                      )
-                    })
-                  )
-
-                })
-              ) : (
-                <h1>Nenhum prod</h1>
-              )
-            }
-          </div>
           <div className='userInfo'>
-            <p>Pedido X</p>
-            <p>Pedido X</p>
-            <p>Pedido X</p>
-            <p>Pedido X</p>
-            <p>Pedido X</p>
-            <p>Pedido X</p>
-
+            {
+              userInfo.length > 0 ? (
+                userInfo.map(info => {
+                  return (
+                    <>
+                      <h4>{info.data().email}</h4>
+                      <h4>{info.data().telefone}</h4>
+                    </>
+                  )
+                })
+              ) : (<p>Nada</p>)
+            }
           </div>
         </div>
       </div>

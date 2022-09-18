@@ -7,7 +7,7 @@ a {
 }
 
 .menu {
-  position: fixed;
+  /* position: fixed; */
   z-index: 99;
   width: 100%;
   background-color: var(--header-background-color);
@@ -48,6 +48,7 @@ a {
 
 .menuUser {
   position: absolute;
+  z-index: 99;
   display: flex;
   width: 5rem;
   padding: 1rem;
@@ -129,7 +130,7 @@ ul li {
   .menu {
     justify-content: space-around;
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
     z-index: 99;
     height: 4rem;
   }

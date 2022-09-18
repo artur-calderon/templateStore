@@ -18,7 +18,7 @@ export default function Header() {
   const [menuUserActive, setMenuUserActive] = useState(false)
 
   return (
-    <div>
+    <>
       <div className={styles.menu}>
         <NavBar />
         <Link to='/' className={styles.img_logo}><img src={logoUsemarcas} alt='Logo usemarcas' /></Link>
@@ -35,6 +35,7 @@ export default function Header() {
                   menuUserActive ? (
                     <ul className={styles.menuUser}>
                       <Link to='/perfil'><li>Perfil</li></Link>
+                      <Link to='/pedidos'><li>Pedidos</li></Link>
                       <li onClick={SignOut}>Sair</li>
                     </ul>
                   ) : null
@@ -46,6 +47,6 @@ export default function Header() {
         </div>
       </div>
 
-    </div >
+    </>
   )
 }

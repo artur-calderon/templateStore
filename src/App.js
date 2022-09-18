@@ -7,9 +7,10 @@ import UserProvider from './contexts/user'
 
 import Home from './Pages/Home'
 import Loja from './Pages/Loja'
-import Perfil from './Pages/Perfil'
 import InfoProductPage from './Pages/InfoProductPage'
 import ShoppingCart from './components/ShoppingCart'
+import Pedidos from './Pages/Pedidos'
+import Perfil from './Pages/Perfil'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <ProductProvider>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/pedidos" element={<Pedidos />} />
                 <Route path="/perfil" element={<Perfil />} />
                 <Route path="/loja" element={<Loja />} />
                 <Route path="/carrinho" element={<ShoppingCart />} />
