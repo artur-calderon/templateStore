@@ -17,6 +17,7 @@ export default function Main() {
 
   const { products, filter } = useContext(ProductContext)
   const [category, setCategory] = useState([])
+  const [showArrow, setShowArrow] = useState(null)
 
   useEffect(() => {
     const q = query(collection(db, 'categoria'));
@@ -27,6 +28,7 @@ export default function Main() {
   }, [])
 
   function changeStyleAndFilterCategory(category) {
+    setShowArrow(category)
     filter(category)
 
   }
@@ -40,7 +42,18 @@ export default function Main() {
           {
             category.map((cat) => {
               return (
-                <li key={cat.id} onClick={(e) => changeStyleAndFilterCategory(cat.data().newcategory)}>{cat.data().newcategory}<IoIosArrowForward /></li>
+                <li
+                  key={cat.id}
+                  onClick={(e) => changeStyleAndFilterCategory(cat.data().newcategory)}>
+
+                  {showArrow === cat.data().newcategory ? (
+                    <>
+                      <IoIosArrowForward />
+                      {cat.data().newcategory}
+                    </>
+                  ) : cat.data().newcategory
+                  }
+                </li>
               )
             })
           }

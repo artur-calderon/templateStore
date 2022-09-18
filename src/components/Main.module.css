@@ -42,23 +42,20 @@
   display: flex;
   flex-direction: column;
   list-style: none;
-  gap: 1rem;
-  align-items: flex-start;
+  gap: 2rem;
+  align-items: center;
 }
 .category li {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  margin-left: 70%;
   cursor: pointer;
 }
 .content {
   display: flex;
   align-items: flex-start;
   width: 80%;
-}
-.category li:hover {
-  border-bottom: 1px solid #f0f0f0;
 }
 
 .category h3.sideTitle {

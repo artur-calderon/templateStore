@@ -218,7 +218,6 @@ export default function ShoppingCart() {
     const mes = String(date.getMonth() + 1).padStart(2, '0')
     const ano = date.getFullYear();
     const dataAtual = `${dia}/${mes}/${ano}`;
-    console.log(dataAtual)
     if (cartProductsPage.length > 0) {
       addDoc(collection(db, 'pedidos'), {
         cartProductsPage,
@@ -226,7 +225,8 @@ export default function ShoppingCart() {
         uid: user.uid,
         condicional: openCondicional,
         enderecoEntrega: end,
-        dataAtual
+        dataAtual,
+        status: 'pendente'
 
       }).then(res => {
         if (res) {
