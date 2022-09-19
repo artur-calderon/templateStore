@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import { UserContext } from '../contexts/user';
 import { onSnapshot, collection, query, where, } from 'firebase/firestore';
 import { db } from '../firebase';
-import './pedidos.css';
+import './perfil.css';
 
 
 export default function Perfil() {
@@ -31,19 +31,22 @@ export default function Perfil() {
       <div className='cont'>
         <div className='perfil'>
           <div className='userPhoto'>
-            <img src='https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png' alt='userPhoto' />
+            <img src={user.photoURL} referrerpolicy='no-referrer' alt='userPhoto' />
             Bem vindo <h3>{user.displayName}</h3>
 
           </div>
 
           <div className='userInfo'>
+            <h3>Suas informações</h3>
             {
               userInfo.length > 0 ? (
                 userInfo.map(info => {
+                  console.log(info.data())
                   return (
                     <>
-                      <h4>{info.data().email}</h4>
-                      <h4>{info.data().telefone}</h4>
+                      <p>Email: {info.data().email}</p>
+                      <p>Telefone: {info.data().telefone}</p>
+                      <p>CPF: {info.data().cpf}</p>
                     </>
                   )
                 })

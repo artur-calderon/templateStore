@@ -35,8 +35,8 @@
   width: 10rem;
 }
 .category {
-  background-color: #fcfcfc;
-  border: 1px solid #f0f0f0;
+  /* background-color: #fcfcfc; */
+  /* border: 1px solid #f0f0f0; */
   width: 20%;
   /* margin-top: 1rem; */
   display: flex;
