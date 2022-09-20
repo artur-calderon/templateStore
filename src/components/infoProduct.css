@@ -21,8 +21,6 @@ body {
   padding: 5rem;
 }
 
-
-
 .productCard_block {
   position: relative;
   display: flex;
@@ -37,14 +35,11 @@ body {
   background-color: #fff;
 }
 
-
-
 .block_name__mainName {
   margin: 0;
   padding: 0;
   font-size: 29px;
 }
-
 
 .block_product {
   position: relative;
@@ -65,8 +60,6 @@ body {
   color: #536dfe;
 }
 
-
-
 .block_descriptionInformation {
   width: 304px;
   height: 104px;
@@ -86,7 +79,6 @@ body {
   z-index: 30;
   transition: left, ease-out, 0.5s;
 }
-
 
 .block_price {
   margin-top: 29px;
@@ -121,26 +113,23 @@ body {
 
 /* ################ add to cart css ########### */
 
-
-
-
 .button_addToCard .cart-button {
   position: relative;
   outline: 0;
-  background-color: blue;
+  background-color: black;
   color: #fff;
   border: none;
   height: 48px;
-  width: 280px;
-  padding: 10px;
+  width: 200px;
+  padding: 5px;
   border-radius: 10px;
   line-height: 0px;
   overflow: hidden;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .button_addToCard .cart-button:focus {
-  outline: none !important
+  outline: none !important;
 }
 
 .cart-button .fa-shopping-cart {
@@ -149,7 +138,7 @@ body {
   top: 50%;
   left: -20%;
   font-size: 1.8em;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 
 .cart-button .fa-square {
@@ -158,92 +147,90 @@ body {
   top: -20%;
   left: 53%;
   font-size: 0.8em;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 
 .cart-button span {
   position: absolute;
+  width: 100%;
   left: 50%;
   top: 50%;
   color: #fff;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 
 .button_addToCard .cart-button .added {
-  opacity: 0
+  opacity: 0;
 }
 
 .cart-button.clicked .fa-shopping-cart {
-  animation: cart 2s ease-in forwards
+  animation: cart 2s ease-in forwards;
 }
 
 .cart-button.clicked .fa-square {
-  animation: box 2s ease-in forwards
+  animation: box 2s ease-in forwards;
 }
 
 .cart-button.clicked span.add-to-cart {
-  animation: addcart 2s ease-in forwards
+  animation: addcart 2s ease-in forwards;
 }
 
 .cart-button.clicked span.added {
-  animation: added 2s ease-in forwards
+  animation: added 2s ease-in forwards;
 }
 
 @keyframes cart {
   0% {
-    left: -10%
+    left: -10%;
   }
 
   40%,
   60% {
-    left: 50%
+    left: 50%;
   }
 
   100% {
-    left: 110%
+    left: 110%;
   }
 }
 
 @keyframes box {
-
   0%,
   40% {
-    top: -20%
+    top: -20%;
   }
 
   60% {
     top: 36%;
-    left: 53%
+    left: 53%;
   }
 
   100% {
     top: 40%;
-    left: 112%
+    left: 112%;
   }
 }
 
 @keyframes addcart {
-
   0%,
   30% {
-    opacity: 1
+    opacity: 1;
   }
 
   30%,
   100% {
-    opacity: 0
+    opacity: 0;
   }
 }
 
 @keyframes added {
-
   0%,
   80% {
-    opacity: 0
+    opacity: 0;
   }
 
   100% {
-    opacity: 1
+    opacity: 1;
   }
 }
 
@@ -270,6 +257,10 @@ body {
     flex-direction: column;
   }
 
+  .button_addToCard button {
+    align-self: center;
+  }
+
   .main {
     padding: 0;
   }
@@ -277,5 +268,4 @@ body {
   .info {
     width: 18rem;
   }
-
 }

@@ -5,12 +5,16 @@ import { UserContext } from '../contexts/user';
 import { onSnapshot, collection, query, where, } from 'firebase/firestore';
 import { db } from '../firebase';
 import './perfil.css';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
 export default function Perfil() {
   document.title = 'Usemarcas | Perfil'
   const { user } = useContext(UserContext)
   const [userInfo, setUserInfo] = useState({})
+  const [inputValue, setIputValue] = useState('')
+  const dialog = withReactContent(Swal)
 
   useEffect(() => {
     if (!user) {
@@ -25,6 +29,25 @@ export default function Perfil() {
 
 
   }, [user])
+
+
+  async function updateUserInfo(att) {
+
+    const { value: ipAddress } = await dialog.fire({
+      title: 'Atualize seu dado',
+      input: 'text',
+      inputLabel: 'Novo',
+      inputValue: att,
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        }
+      }
+    })
+
+    console.log(ipAddress)
+  }
   return (
     <>
       <Header />
@@ -41,12 +64,12 @@ export default function Perfil() {
             {
               userInfo.length > 0 ? (
                 userInfo.map(info => {
-                  console.log(info.data())
                   return (
                     <>
-                      <p>Email: {info.data().email}</p>
-                      <p>Telefone: {info.data().telefone}</p>
-                      <p>CPF: {info.data().cpf}</p>
+                      <p>Email:{info.data().email}</p><b onClick={() => updateUserInfo(info.data().email)}><u>Editar</u></b>
+                      {/* <p>Telefone: {info.data().telefone} <b><u>Editar</u></b></p>
+                      <p>CPF: {info.data().cpf} <b><u>Editar</u></b></p>
+                      <p>Endereço: {info.data().endereco[0]} <b><u>Editar</u></b></p> */}
                     </>
                   )
                 })
