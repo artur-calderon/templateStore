@@ -18,6 +18,7 @@ import "swiper/css/navigation";
 export default function InfoProduct({ id }) {
   const [infoProduct, setInfoProduct] = useState([]);
   const [url, setUrl] = useState([]);
+  const [classeClick, setClasseClick] = useState('');
   const history = useNavigate()
   const { addToCart } = useContext(ProductContext);
 
@@ -40,6 +41,13 @@ export default function InfoProduct({ id }) {
     return getInfoProduct
   }, [])
 
+  function adicionaToCart(id){
+    setClasseClick('clicked')
+    setTimeout(() => {
+      setClasseClick('')
+    }, 3000);
+    addToCart(id)
+  }
 
   return (
     <>
@@ -97,7 +105,12 @@ export default function InfoProduct({ id }) {
                       <p className="block_price__shipping">Frete por conta do comprador</p>
                     </div>
                     <div className="button_addToCard">
-                      <FaCartPlus size="50px" onClick={() => addToCart(id)} />
+                       <button className={`cart-button ${classeClick}`} onClick={() => adicionaToCart(id)}>
+                        <span className="add-to-cart">Adicionar ao carrinho</span>
+                        <span class="added">Adicionado</span>
+                        <i class="fa fa-shopping-cart"></i>
+                        <i class="fa fa-square"></i> </button>
+                      {/* <FaCartPlus size="50px" onClick={() => addToCart(id)} /> */}
                       <div>
                         <Link to='/'><BiLeftArrowAlt /> Voltar para Produtos</Link>
                       </div>

@@ -8,7 +8,8 @@ body {
   min-width: 320px;
   position: relative;
 }
-*{
+
+* {
   font-family: var(--font-padrao);
 }
 
@@ -108,12 +109,142 @@ body {
   color: #a2a9ad;
   font-size: 12px;
 }
-.info{
+
+.info {
   width: 50%;
 }
-.info .swiper-slide img{
+
+.info .swiper-slide img {
   object-fit: cover;
   width: 100%;
+}
+
+/* ################ add to cart css ########### */
+
+
+
+
+.button_addToCard .cart-button {
+  position: relative;
+  outline: 0;
+  background-color: blue;
+  color: #fff;
+  border: none;
+  height: 48px;
+  width: 280px;
+  padding: 10px;
+  border-radius: 10px;
+  line-height: 0px;
+  overflow: hidden;
+  cursor: pointer
+}
+
+.button_addToCard .cart-button:focus {
+  outline: none !important
+}
+
+.cart-button .fa-shopping-cart {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: -20%;
+  font-size: 1.8em;
+  transform: translate(-50%, -50%)
+}
+
+.cart-button .fa-square {
+  position: absolute;
+  z-index: 1;
+  top: -20%;
+  left: 53%;
+  font-size: 0.8em;
+  transform: translate(-50%, -50%)
+}
+
+.cart-button span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  color: #fff;
+  transform: translate(-50%, -50%)
+}
+
+.button_addToCard .cart-button .added {
+  opacity: 0
+}
+
+.cart-button.clicked .fa-shopping-cart {
+  animation: cart 2s ease-in forwards
+}
+
+.cart-button.clicked .fa-square {
+  animation: box 2s ease-in forwards
+}
+
+.cart-button.clicked span.add-to-cart {
+  animation: addcart 2s ease-in forwards
+}
+
+.cart-button.clicked span.added {
+  animation: added 2s ease-in forwards
+}
+
+@keyframes cart {
+  0% {
+    left: -10%
+  }
+
+  40%,
+  60% {
+    left: 50%
+  }
+
+  100% {
+    left: 110%
+  }
+}
+
+@keyframes box {
+
+  0%,
+  40% {
+    top: -20%
+  }
+
+  60% {
+    top: 36%;
+    left: 53%
+  }
+
+  100% {
+    top: 40%;
+    left: 112%
+  }
+}
+
+@keyframes addcart {
+
+  0%,
+  30% {
+    opacity: 1
+  }
+
+  30%,
+  100% {
+    opacity: 0
+  }
+}
+
+@keyframes added {
+
+  0%,
+  80% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
 }
 
 .button_addToCard {
