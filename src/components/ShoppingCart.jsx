@@ -4,7 +4,7 @@ import { ProductContext } from '../contexts/products';
 import { Link } from 'react-router-dom';
 
 import { db } from '../firebase';
-import { collection, addDoc, where, onSnapshot, query } from 'firebase/firestore';
+import { collection, addDoc, where, onSnapshot, query, doc } from 'firebase/firestore';
 
 import './ShoppingCart.css'
 import Swal from 'sweetalert2'
@@ -24,7 +24,7 @@ export default function ShoppingCart() {
 
 
   const { cartProducts, deleteProductFromCart, setCartProducts } = useContext(ProductContext)
-  const { user } = useContext(UserContext)
+  const { user ,Auth } = useContext(UserContext)
   const [cartProductsPage, setCartProductsPage] = useState({})
   const [total, setTotal] = useState(0)
   const [openCondicional, setOpenCondicional] = useState(false)
@@ -115,6 +115,28 @@ export default function ShoppingCart() {
 
   }
 
+  function promotionCode(e){
+    e.preventDefault()
+    let inputCodes = e.target.value.toUpperCase()
+  
+    let promotionalCodes = query(doc(db,'codigoPromocional',inputCodes.toUpperCase()))
+
+    onSnapshot(promotionalCodes, res=>{
+      console.log(res.data()[inputCodes])
+      let discount = res.data()[inputCodes]
+
+      if(discount){
+
+        setTotal(prev =>{
+          let valor = prev
+          let desconto = valor * discount / 100
+          return valor - desconto
+        } )
+      }
+    })
+    
+
+  }
 
 
   const deleteItem = (index) => {
@@ -129,9 +151,9 @@ export default function ShoppingCart() {
 
 
   function showModal(action) {
-    console.log(cartProductsPage)
     if (!user) {
       Alert.fire('Atenção', 'Você precisa estar logado', 'info')
+      Auth();
     } else if (!cartProductsPage.length) {
       Alert.fire('Atenção', 'Você precisa ter um produto no carrinho', 'info')
     } else if (action == 'compra') {
@@ -182,7 +204,7 @@ export default function ShoppingCart() {
             ) : (<h1>Nenhum Produto</h1>)
           }
 
-          <div className="back-to-shop"><Link to="/"><span className="text-muted">&#x21bc; Back to shop</span></Link></div>
+          <div className="back-to-shop"><Link to="/"><span className="text-muted">&#x21bc; Voltar a comprar</span></Link></div>
         </div>
         <div className="summary">
           <div>
@@ -192,8 +214,7 @@ export default function ShoppingCart() {
           <div className="row">
             <div className="col" style={{ paddingLeft: 0 }}>ITENS {!cartProducts.length ? 0 : null}</div>
           </div>
-          <form>
-
+          <form onChange={(e)=> promotionCode(e)}>
             <p>Código Promocional</p> <input id="code" placeholder="Digite seu código..." />
           </form>
           <div className="row" >
@@ -247,6 +268,7 @@ export default function ShoppingCart() {
           setOpenCompra(false)
           setCartProductsPage({})
           setCartProducts({})
+          setTotal(0)
           window.localStorage.clear()
         }
       })
