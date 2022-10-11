@@ -46,7 +46,7 @@ export default function InfoProduct({ id }) {
     setTimeout(() => {
       setClasseClick('')
     }, 3000);
-    // addToCart(id)
+    addToCart(id)
   }
 
   return (
@@ -107,9 +107,9 @@ export default function InfoProduct({ id }) {
                     <div className="button_addToCard">
                       <button className={`cart-button ${classeClick}`} onClick={() => adicionaToCart(id)}>
                         <span className="add-to-cart">Adicionar ao carrinho</span>
-                        <span class="added">Adicionado</span>
-                        <i class="fa fa-shopping-cart"></i>
-                        <i class="fa fa-square"></i> </button>
+                        <span className="added">Adicionado</span>
+                        <i className="fa fa-shopping-cart"></i>
+                        <i className="fa fa-square"></i> </button>
                       <div>
                         <Link to='/'><BiLeftArrowAlt /> Voltar para Produtos</Link>
                       </div>

@@ -4,7 +4,7 @@ import { ProductContext } from '../contexts/products';
 import { Link } from 'react-router-dom';
 
 import { db } from '../firebase';
-import { collection, addDoc, where, onSnapshot, query, doc } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, query, doc } from 'firebase/firestore';
 
 import './ShoppingCart.css'
 import Swal from 'sweetalert2'
@@ -24,11 +24,13 @@ export default function ShoppingCart() {
 
 
   const { cartProducts, deleteProductFromCart, setCartProducts } = useContext(ProductContext)
-  const { user ,Auth } = useContext(UserContext)
+  const { user, Auth } = useContext(UserContext)
   const [cartProductsPage, setCartProductsPage] = useState({})
   const [total, setTotal] = useState(0)
   const [openCondicional, setOpenCondicional] = useState(false)
   const [openCompra, setOpenCompra] = useState(false)
+  const [promotionalCode, setPromotionalCode] = useState('')
+  const [promotionalCodeDiscount, setPromotionalCodeDiscount] = useState(0)
 
 
 
@@ -115,27 +117,40 @@ export default function ShoppingCart() {
 
   }
 
-  function promotionCode(e){
+  function promotionCode(e) {
     e.preventDefault()
     let inputCodes = e.target.value.toUpperCase()
-  
-    let promotionalCodes = query(doc(db,'codigoPromocional',inputCodes.toUpperCase()))
+    if (inputCodes) {
+      let promotionalCodes = query(doc(db, 'codigoPromocional', inputCodes.toUpperCase()))
 
-    onSnapshot(promotionalCodes, res=>{
-      console.log(res.data()[inputCodes])
-      let discount = res.data()[inputCodes]
+      onSnapshot(promotionalCodes, res => {
+        let valueToDiscount = res.data()[inputCodes]
+        let namePromotionalCode = ''
 
-      if(discount){
+        for (const key in res.data()) {
+          setPromotionalCode(key)
+          namePromotionalCode = key
+        }
 
-        setTotal(prev =>{
-          let valor = prev
-          let desconto = valor * discount / 100
-          return valor - desconto
-        } )
-      }
-    })
-    
 
+        if (namePromotionalCode != promotionalCode) {
+          setTotal(prev => {
+            let valor = prev
+            let desconto = valor * valueToDiscount / 100
+            setPromotionalCodeDiscount(desconto)
+            return valor - desconto
+          })
+        } else {
+          return
+        }
+      })
+    }
+  }
+
+  function removePromotionalCode() {
+    setPromotionalCode('')
+    setTotal(prev => prev + promotionalCodeDiscount)
+    setPromotionalCodeDiscount(0)
   }
 
 
@@ -143,7 +158,16 @@ export default function ShoppingCart() {
 
     let algo = cartProductsPage.find(index => index)
     let count = Number(algo.subtotal) - Number(algo.price) * algo.quantidade
-    setTotal(count)
+    if (!promotionalCodeDiscount) {
+      setTotal(count)
+    } else {
+      setTotal(prev => {
+        let valor = prev
+        let desconto = valor * promotionalCodeDiscount / 100
+        setPromotionalCodeDiscount(desconto)
+        return valor - desconto
+      })
+    }
     window.localStorage.removeItem(algo.id)
     deleteProductFromCart(index)
 
@@ -212,10 +236,13 @@ export default function ShoppingCart() {
           </div>
           <hr />
           <div className="row">
-            <div className="col" style={{ paddingLeft: 0 }}>ITENS {!cartProducts.length ? 0 : null}</div>
+            <div className="col" style={{ paddingLeft: 0 }}>ITENS </div>
           </div>
-          <form onChange={(e)=> promotionCode(e)}>
-            <p>Código Promocional</p> <input id="code" placeholder="Digite seu código..." />
+          <form onChange={(e) => promotionCode(e)} onSubmit={promotionCode}>
+            <p>Código Promocional</p>
+            <input id="code" placeholder="Digite seu código..." />
+            <span className='cupomDesconto'>Cupom: {promotionalCode} <span onClick={removePromotionalCode}>&#10005;</span>
+            </span>
           </form>
           <div className="row" >
             <div className="col">TOTAL</div>
