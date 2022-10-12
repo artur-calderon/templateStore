@@ -9,9 +9,9 @@ const MobileNavigation = () => {
   const [open, setOpen] = useState(false);
 
 
-  const openButton = <GiHamburgerMenu color="white" size='20px' onClick={() => setOpen(!open)} />
+  const openButton = <GiHamburgerMenu className={styles.cartButtonColor} size='20px' onClick={() => setOpen(!open)} />
 
-  const closeButton = <AiFillCloseCircle color="white" size='20px' onClick={() => setOpen(!open)} />
+  const closeButton = <AiFillCloseCircle className={styles.cartButtonColor} size='20px' onClick={() => setOpen(!open)} />
 
 
 

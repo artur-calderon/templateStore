@@ -35,15 +35,22 @@
   align-items: center;
 }
 
-.mainImage .swiper-slide img {
-  display: block;
-  width: 10px;
-  height: 100%;
-  object-fit: contain;
-}
-
 .swiper-button-next,
 .swiper-button-prev {
   color: #fff !important;
   background-color: transparent !important;
+}
+@media (max-width: 568px) {
+  .swiper-wrapper {
+    align-items: center;
+    justify-content: center;
+  }
+  .swiper .swiper-slide > img {
+    width: 100% !important;
+  }
+  .imgSlide {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
 }

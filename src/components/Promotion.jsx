@@ -25,19 +25,13 @@ function Promotion() {
         }}
         className={styles.swiper}
       >
-        <SwiperSlide><img src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=80' alt='images' /></SwiperSlide>
-        <SwiperSlide><img src='https://images.unsplash.com/photo-1503342452485-86b7f54527ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' alt='images' /></SwiperSlide>
-        <SwiperSlide><img src='https://images.unsplash.com/photo-1538329972958-465d6d2144ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' alt='images' /></SwiperSlide>
-        <SwiperSlide><img src='https://images.unsplash.com/photo-1477814670986-8d8dccc5640d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=873&q=80' alt='images' /></SwiperSlide>
+        <SwiperSlide><img className={styles.imgSlide} src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=80' alt='images' /></SwiperSlide>
+        <SwiperSlide><img className={styles.imgSlide} src='https://images.unsplash.com/photo-1503342452485-86b7f54527ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' alt='images' /></SwiperSlide>
+        <SwiperSlide><img className={styles.imgSlide} src='https://images.unsplash.com/photo-1538329972958-465d6d2144ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' alt='images' /></SwiperSlide>
+        <SwiperSlide><img className={styles.imgSlide} src='https://images.unsplash.com/photo-1477814670986-8d8dccc5640d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=873&q=80' alt='images' /></SwiperSlide>
       </Swiper>
     </div>
-    // <div className={styles.mainImage}>
-    //  <div>
-    //     <h3>Coleção Primavera e Verão disponível</h3>
-    //     <button>Ver mais</button>
-    //   </div> 
 
-    // </div>
   )
 }
 
