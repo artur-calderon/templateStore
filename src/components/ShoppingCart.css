@@ -1,6 +1,9 @@
 .title {
   margin-bottom: 5vh;
 }
+.returnClass {
+  position: relative;
+}
 
 .card {
   display: flex;
@@ -9,19 +12,14 @@
   margin: 0 auto;
   max-width: 950px;
   width: 90%;
-  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 1rem;
-  border: transparent;
+  /* box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   padding: 1rem 0;
   /* margin: 1rem 0; */
 }
 
 .cart {
-  background-color: #fff;
   width: 70%;
   padding: 4vh 5vh;
-  border-bottom-left-radius: 1rem;
-  border-top-left-radius: 1rem;
 }
 
 .border {
@@ -41,9 +39,8 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  margin-bottom: 1rem;
   justify-content: space-between;
-  height: auto;
-  /* margin: 4rem 0; */
   border-bottom: 0.5px solid rgb(218, 216, 216);
 }
 
@@ -86,14 +83,6 @@ p {
   border-bottom-right-radius: 1rem;
   padding: 4vh;
   color: rgb(65, 65, 65);
-}
-
-.summary .imageItem {
-  padding: 0;
-}
-
-.summary .col-10 {
-  padding: 0;
 }
 
 .title b {

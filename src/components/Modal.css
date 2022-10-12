@@ -1,37 +1,36 @@
 .modalBG {
   position: absolute;
-  top: 50%;
-  left: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row-reverse;
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
   height: 100%;
   z-index: 999;
 }
-
-/* .swal2-container {
-  z-index: 1000 !important;
-} */
+.form-style-8 h2 {
+  color: #fff;
+  font-weight: 400;
+}
 
 .modalContainer {
+  position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
   width: 50%;
-  height: auto;
   background-color: #fff;
 }
 
 .closeButton {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   position: relative;
-  top: -25px;
-  left: -2px;
+  font-size: 1.5rem;
+  top: 0;
+  left: 95%;
   width: 25px;
   height: 25px;
   background-color: rgb(255, 255, 255);
@@ -96,8 +95,11 @@ select:-moz-focusring {
   }
 
   .closeButton {
-    top: 25px;
-    left: 5px;
+    position: relative;
+    background: none;
+    color: #fff;
+    top: 48px;
+    left: 92%;
     align-self: flex-start;
   }
 }

@@ -307,7 +307,7 @@ export default function ShoppingCart() {
 
 
   return (
-    <>
+    <div className='returnClass'>
       {/* modal de condicional */}
       {openCondicional && <Modal closer={setOpenCondicional} user={user} type='condicional' condicional={cadastraPedido}>
 
@@ -320,6 +320,6 @@ export default function ShoppingCart() {
       <Promotion />
       <Cart />
       <Footer />
-    </>
+    </div>
   )
 }
