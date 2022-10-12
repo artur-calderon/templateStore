@@ -1,0 +1,49 @@
+.mainImage {
+  width: 100%;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  height: 40rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.mainImage .swiper {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.mainImage .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.mainImage .swiper-slide img {
+  display: block;
+  width: 10px;
+  height: 100%;
+  object-fit: contain;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff !important;
+  background-color: transparent !important;
+}

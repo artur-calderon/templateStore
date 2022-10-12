@@ -1,14 +1,14 @@
 import React from 'react';
-import './Promotion.css'
+import styles from './Promotion.module.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper';
 import 'swiper/css'
 import "swiper/css/navigation";
 function Promotion() {
   return (
-    <div className='mainImage'>
+    <div className={styles.mainImage}>
       <Swiper
-        spaceBetween={10}
+        spaceBetween={5}
         slidesPerView={1}
         navigation={true}
         modules={[Navigation]}
@@ -16,19 +16,19 @@ function Promotion() {
           // when window width is >= 640px
           640: {
             slidesPerView: 2,
-            spaceBetween: 10,
+            spaceBetween: 5,
           },
           768: {
-            slidesPerView: 3,
-            spaceBetween: 10,
+            slidesPerView: 1,
+            spaceBetween: 5,
           }
         }}
-        className='swiper'
+        className={styles.swiper}
       >
-        <SwiperSlide><img src='https://cdn.pixabay.com/photo/2016/11/23/17/25/woman-1853939__340.jpg' alt='images' /></SwiperSlide>
-        <SwiperSlide><img src='https://images.unsplash.com/photo-1576248314791-3c17ed9fa182?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bW9kYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60' alt='images' /></SwiperSlide>
-        <SwiperSlide><img src='https://images.unsplash.com/photo-1583002083815-8c6305bd56a4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bW9kYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60' alt='images' /></SwiperSlide>
-        <SwiperSlide><img src='https://images.unsplash.com/photo-1583001809873-a128495da465?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bW9kYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60' alt='images' /></SwiperSlide>
+        <SwiperSlide><img src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=80' alt='images' /></SwiperSlide>
+        <SwiperSlide><img src='https://images.unsplash.com/photo-1503342452485-86b7f54527ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' alt='images' /></SwiperSlide>
+        <SwiperSlide><img src='https://images.unsplash.com/photo-1538329972958-465d6d2144ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' alt='images' /></SwiperSlide>
+        <SwiperSlide><img src='https://images.unsplash.com/photo-1477814670986-8d8dccc5640d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=873&q=80' alt='images' /></SwiperSlide>
       </Swiper>
     </div>
     // <div className={styles.mainImage}>

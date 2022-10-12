@@ -1,11 +1,10 @@
-import React from "react";
-import Navigation from "./Navigation";
-import MobileNavigation from "./MobileNavigation";
+import React from 'react'
+import Navigation from './Navigation'
+import MobileNavigation from './MobileNavigation'
 import styles from './Header.module.css'
 
-
-const NavBar = ()=>{
-  return(
+const NavBar = () => {
+  return (
     <nav className={styles.NavBar}>
       <Navigation />
       <MobileNavigation />

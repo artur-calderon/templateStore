@@ -20,8 +20,10 @@ export default function Header() {
   return (
     <>
       <div className={styles.menu}>
-        <NavBar />
-        <Link to='/' className={styles.img_logo}><img src={logoUsemarcas} alt='Logo usemarcas' /></Link>
+        <div className={styles.navAndLogo}>
+          <NavBar />
+          <Link to='/' className={styles.img_logo}><img src={logoUsemarcas} alt='Logo usemarcas' /></Link>
+        </div>
 
         <div className={styles.cartButton}>
           {cartProducts.length >= 1 ? <span className={styles.cartQuantity}>{cartProducts.length}</span> : null}
