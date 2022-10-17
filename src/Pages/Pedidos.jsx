@@ -5,13 +5,14 @@ import { UserContext } from '../contexts/user';
 import { onSnapshot, collection, query, where, } from 'firebase/firestore';
 import { db } from '../firebase';
 import './pedidos.css';
+import emptyCart from '../img/basket.png'
 
 
 export default function Pedidos() {
   document.title = 'Usemarcas | Pedidos'
   const { user } = useContext(UserContext)
   const [userPedidos, setUserPedidos] = useState({})
-  // const [userInfo, setUserInfo] = useState({})
+
 
   useEffect(() => {
     if (!user) {
@@ -19,10 +20,7 @@ export default function Pedidos() {
       window.location.href = '/'
 
     }
-    // const u = query(collection(db, 'clientes'), where('uid', '==', user.uid))
-    // onSnapshot(u, res => {
-    //   setUserInfo(res.docs)
-    // })
+
     const q = query(collection(db, 'pedidos'), where('uid', '==', user.uid));
     onSnapshot(q, res => {
       setUserPedidos(res.docs)
@@ -34,59 +32,62 @@ export default function Pedidos() {
       <Header />
       <div className='cont'>
         <div className='pedidos'>
-          {/* <div className='userPhoto'>
-            <img src='https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png' alt='userPhoto' />
-            Bem vindo <h3>{user.displayName}</h3>
-
-          </div> */}
           <div className='userPedidos'>
             {
               userPedidos.length > 0 ? (
                 userPedidos.map(ped => {
+                  console.log(ped)
                   const prod = ped.data().cartProductsPage;
-
                   return (
-                    prod.map(p => {
-                      return (
-                        <div className='pedidoSingle'>
-                          <div className='imageProd'>
-                            <img src={p.url} alt={p.title} />
-                            <div className='infoPedido'>
-                              <span><b>{p.title}</b></span>
-                              <span><b>Data:</b> {ped.data().dataAtual}</span>
-                              <span><b>Endereço de entrega:</b><br /> {ped.data().enderecoEntrega}</span>
-                              <span><b>Itens:</b><br /> {p.quantidade}</span>
-                              <span><b> Tipo do pedido: </b> {ped.data().condicional ? 'Condicional' : 'Compra'}</span>
+                    <div className="accordion-wrapper">
+                      <div className="accordion">
+                        <input type="radio" name="radio-a" id={ped.id} defaultChecked />
+                        <label className="accordion-label" htmlFor={ped.id}>
+                          <strong>Total:</strong>{ped.data().total}
+                          <strong>Data da compra:</strong>{ped.data().dataAtual}
+                          <strong>Status do pedido:</strong>{ped.data().status}
+                          <strong>Entregar em:</strong>{ped.data().enderecoEntrega}
+                          <strong>{ped.data().condicional ? 'Condicional' : 'Compra'}</strong>
+                        </label>
+                        <div className="accordion-content">
+                          {
+                            prod.map(p => {
+                              return (
+                                <div className='pedidoSingle'>
+                                  <div className='imageProd'>
+                                    <img src={p.url} alt={p.title} />
+                                    <div className='infoPedido'>
+                                      <span><b>{p.title}</b></span>
+                                      <span><b>Data:</b> {ped.data().dataAtual}</span>
+                                      <span><b>Endereço de entrega:</b><br /> {ped.data().enderecoEntrega}</span>
+                                      <span><b>Quantidade:</b><br /> {p.quantidade}</span>
+                                      <span><b> Tipo do pedido: </b> {ped.data().condicional ? 'Condicional' : 'Compra'}</span>
 
-                            </div>
-                          </div>
-                          <span><b>Total:</b> {ped.data().total}</span>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                              )
+                            })
+                          }
                         </div>
-                      )
-                    })
+                      </div>
+                    </div>
+
+
                   )
 
                 })
               ) : (
-                <h1>Nenhum prod</h1>
+                <div className='emptyCart'>
+                  <h3>Nenhum pedido</h3>
+                  <img src={emptyCart} alt='emptyCart'></img>
+                </div>
               )
             }
           </div>
-          {/* <div className='userInfo'>
-            {
-              userInfo.length > 0 ? (
-                userInfo.map(info => {
-                  return (
-                    <>
-                      <h4>{info.data().name}</h4>
-                      <h4>{info.data().email}</h4>
-                      <h4>{info.data().telefone}</h4>
-                    </>
-                  )
-                })
-              ) : (<p>Nada</p>)
-            }
-          </div> */}
+
         </div>
       </div>
       <Footer />

@@ -13,6 +13,8 @@ function Modal(props) {
   const [telefone, setTelefone] = useState('')
   const [endereco, setEndereco] = useState([])
   const [enderecoSend, setEnderecoSend] = useState('')
+  const [promotionalCode, setPromotionalCode] = useState('')
+  const [promotionalCodeDiscount, setPromotionalCodeDiscount] = useState(0)
 
   useEffect(() => {
     const q = query(
@@ -42,15 +44,55 @@ function Modal(props) {
     props.pagar()
     props.cadastraPedido(enderecoSend)
   }
+  function promotionCode(e) {
+    e.preventDefault()
+    let inputCodes = e.target.value.toUpperCase()
+    if (inputCodes) {
+      let promotionalCodes = query(doc(db, 'codigoPromocional', inputCodes))
+
+      onSnapshot(promotionalCodes, res => {
+        let valueToDiscount = res.data()[inputCodes]
+        let namePromotionalCode = ''
+
+        for (const key in res.data()) {
+          setPromotionalCode(key)
+          namePromotionalCode = key
+        }
+
+
+        if (namePromotionalCode != promotionalCode) {
+          props.settotal(prev => {
+            let valor = prev
+            let desconto = valor * valueToDiscount / 100
+            setPromotionalCodeDiscount(desconto)
+            return valor - desconto
+          })
+        } else {
+          return
+        }
+      })
+    }
+  }
+
+  function handleCloseModal() {
+    props.closer(false)
+    removePromotionalCode()
+  }
+
+  function removePromotionalCode() {
+    setPromotionalCode('')
+    props.settotal(prev => prev + promotionalCodeDiscount)
+    setPromotionalCodeDiscount(0)
+  }
 
   return (
     <div className='modalBG'>
       <div className='modalContainer'>
-        <div className='closeButton' onClick={() => props.closer(false)}>X</div>
+        <div className='closeButton' onClick={handleCloseModal}>X</div>
         {
           clientes &&
           clientes.map(cli => {
-            console.log(cli.data())
+
             if (cli.data().cpf == '' || cli.data().endereco == [] || cli.data().telefone == '') {
               return (
                 <div className="form-style-8">
@@ -67,6 +109,20 @@ function Modal(props) {
               return (
                 <div className='form-style-8'>
                   <h2>Qual endereço de entrega?</h2>
+                  {
+                    props.type == 'compra' && (
+                      <form onChange={(e) => promotionCode(e)} onSubmit={promotionCode}>
+                        <p>Código Promocional</p>
+                        <input id="code" placeholder="Digite seu código..." disabled={promotionalCode && true} />
+                        {promotionalCode ? (
+                          <span className='cupomDesconto'>Cupom: {promotionalCode} <span onClick={removePromotionalCode}>&#10005;</span>
+                          </span>
+
+                        ) : ''}
+                        <span>Total: {props.total}</span>
+                      </form>
+                    )
+                  }
                   <select className='minimal' onChange={e => setEnderecoSend(e.target.value)} value={enderecoSend}>
                     {
                       cli.data().endereco.map((end, index) => (<option value={end} key={index}>{end}</option>))

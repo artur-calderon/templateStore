@@ -55,7 +55,7 @@
 .content {
   display: flex;
   align-items: flex-start;
-  width: 80%;
+  width: 100%;
 }
 
 .category h3.sideTitle {

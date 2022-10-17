@@ -19,7 +19,6 @@ export default function Card({ produtos }) {
                   <img src={itens.data().url || itens.data().urls[0]} alt="Product" className="img-responsive" />
                 </div>
                 <div className="cardDescription">
-
                   <div className="title-product">
                     <h3>{itens.data().title}</h3>
                     <span>{itens.data().categoria}</span>

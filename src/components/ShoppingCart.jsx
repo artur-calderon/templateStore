@@ -29,7 +29,6 @@ export default function ShoppingCart() {
   const [total, setTotal] = useState(0)
   const [openCondicional, setOpenCondicional] = useState(false)
   const [openCompra, setOpenCompra] = useState(false)
-  const [promotionalCode, setPromotionalCode] = useState('')
   const [promotionalCodeDiscount, setPromotionalCodeDiscount] = useState(0)
 
 
@@ -117,41 +116,8 @@ export default function ShoppingCart() {
 
   }
 
-  function promotionCode(e) {
-    e.preventDefault()
-    let inputCodes = e.target.value.toUpperCase()
-    if (inputCodes) {
-      let promotionalCodes = query(doc(db, 'codigoPromocional', inputCodes.toUpperCase()))
-
-      onSnapshot(promotionalCodes, res => {
-        let valueToDiscount = res.data()[inputCodes]
-        let namePromotionalCode = ''
-
-        for (const key in res.data()) {
-          setPromotionalCode(key)
-          namePromotionalCode = key
-        }
 
 
-        if (namePromotionalCode != promotionalCode) {
-          setTotal(prev => {
-            let valor = prev
-            let desconto = valor * valueToDiscount / 100
-            setPromotionalCodeDiscount(desconto)
-            return valor - desconto
-          })
-        } else {
-          return
-        }
-      })
-    }
-  }
-
-  function removePromotionalCode() {
-    setPromotionalCode('')
-    setTotal(prev => prev + promotionalCodeDiscount)
-    setPromotionalCodeDiscount(0)
-  }
 
 
   const deleteItem = (index) => {
@@ -238,12 +204,7 @@ export default function ShoppingCart() {
           <div className="row">
             <div className="col" style={{ paddingLeft: 0 }}>ITENS </div>
           </div>
-          <form onChange={(e) => promotionCode(e)} onSubmit={promotionCode}>
-            <p>Código Promocional</p>
-            <input id="code" placeholder="Digite seu código..." />
-            <span className='cupomDesconto'>Cupom: {promotionalCode} <span onClick={removePromotionalCode}>&#10005;</span>
-            </span>
-          </form>
+
           <div className="row" >
             <div className="col">TOTAL</div>
             <div className="col">{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</div>
@@ -314,7 +275,7 @@ export default function ShoppingCart() {
       </Modal>}
 
       {/* modal de compra */}
-      {openCompra && <Modal closer={setOpenCompra} user={user} type='compra' pagar={() => Pagar(cartProductsPage)} cadastraPedido={cadastraPedido}>
+      {openCompra && <Modal closer={setOpenCompra} user={user} type='compra' settotal={setTotal} total={total} pagar={() => Pagar(cartProductsPage)} cadastraPedido={cadastraPedido}>
       </Modal>}
       <Header />
       <Promotion />

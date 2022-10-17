@@ -1,7 +1,6 @@
 .cont {
   position: relative;
   width: 100%;
-  padding: 3rem;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -43,6 +42,7 @@
 }
 @media screen and (max-width: 568px) {
   .cont {
+    padding: 0;
     flex-direction: column;
   }
 
