@@ -33,7 +33,7 @@ export default function Perfil() {
 
   async function updateUserInfo(att) {
 
-    const { value: ipAddress } = await dialog.fire({
+    const { value: data } = await dialog.fire({
       title: 'Atualize seu dado',
       input: 'text',
       inputLabel: 'Novo',
@@ -46,7 +46,7 @@ export default function Perfil() {
       }
     })
 
-    console.log(ipAddress)
+    console.log(data)
   }
   return (
     <>
@@ -54,9 +54,8 @@ export default function Perfil() {
       <div className='cont'>
         <div className='perfil'>
           <div className='userPhoto'>
-            <img src={user.photoURL} referrerpolicy='no-referrer' alt='userPhoto' />
+            <img src={user.photoURL} referrerPolicy='no-referrer' alt='userPhoto' />
             Bem vindo <h3>{user.displayName}</h3>
-
           </div>
 
           <div className='userInfo'>
@@ -67,9 +66,9 @@ export default function Perfil() {
                   return (
                     <>
                       <p>Email:{info.data().email}</p><b onClick={() => updateUserInfo(info.data().email)}><u>Editar</u></b>
-                      {/* <p>Telefone: {info.data().telefone} <b><u>Editar</u></b></p>
-                      <p>CPF: {info.data().cpf} <b><u>Editar</u></b></p>
-                      <p>Endereço: {info.data().endereco[0]} <b><u>Editar</u></b></p> */}
+                      <p>Telefone: {info.data().telefone} <b onClick={() => updateUserInfo(info.data().telefone)}><u>Editar</u></b></p>
+                      <p>CPF: {info.data().cpf} <b onClick={() => updateUserInfo(info.data().cpf)}><u>Editar</u></b></p>
+                      <p>Endereço: {info.data().endereco[0]} <b onClick={() => updateUserInfo(info.data().endereco[0])}><u>Editar</u></b></p>
                     </>
                   )
                 })

@@ -91,7 +91,7 @@
 
 /* ################ END FORM CSS ############ */
 
-input[type='text'] {
+#code {
   border: 1px solid rgba(0, 0, 0, 0.137);
   padding: 1vh;
   margin-bottom: 4vh;
@@ -100,7 +100,7 @@ input[type='text'] {
   background-color: rgb(247, 247, 247);
 }
 
-input[type='text']:focus::-webkit-input-placeholder {
+#code:focus::-webkit-input-placeholder {
   color: transparent;
 }
 #code {
@@ -126,13 +126,6 @@ input[type='text']:focus::-webkit-input-placeholder {
   font-size: 0.69rem;
 }
 
-.modalContainer {
-  position: relative;
-  font-family: 'Source Sans Pro', sans-serif;
-  width: 50%;
-  background-color: #fff;
-}
-
 .closeButton {
   position: absolute;
   display: flex;
@@ -141,8 +134,8 @@ input[type='text']:focus::-webkit-input-placeholder {
   cursor: pointer;
   position: relative;
   font-size: 1.5rem;
-  top: 0;
-  left: 95%;
+  top: 65px;
+  left: 96%;
   width: 25px;
   height: 25px;
   background-color: rgb(255, 255, 255);
@@ -200,6 +193,9 @@ select:-moz-focusring {
     width: 100%;
 
   } */
+  .form-style-8{
+    width: 100%;
+  }
 
   .modalContainer {
     background-color: transparent;

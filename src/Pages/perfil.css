@@ -1,17 +1,18 @@
 .cont {
   position: relative;
   width: 100%;
-  height: auto;
+  padding: 5rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   font-family: var(--font-padrao);
   align-items: center;
   justify-content: center;
 }
 .perfil {
   height: auto;
+  padding: 2rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
 }
 .userPhoto,
@@ -41,8 +42,9 @@
   border-radius: 50%;
 }
 @media screen and (max-width: 568px) {
-  .cont {
-    padding: 0;
+ 
+  .cont,
+  .perfil{
     flex-direction: column;
   }
 

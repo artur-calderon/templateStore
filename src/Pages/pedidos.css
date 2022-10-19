@@ -65,7 +65,7 @@ input[type='radio'] {
 }
 .accordion {
   width: 100%;
-  color: white;
+  /* color: white; */
   overflow: hidden;
   margin-bottom: 16px;
 }
@@ -74,17 +74,17 @@ input[type='radio'] {
 }
 .accordion-label {
   display: flex;
-  -webkit-box-pack: justify;
+  flex-direction: row;
   justify-content: space-around;
   padding: 16px;
-  background: #4d5852;
+  /* background: #4d5852; */
   font-weight: normal;
   cursor: pointer;
   font-size: 20px;
 }
-.accordion-label:hover {
+/* .accordion-label:hover {
   background: rgba(4, 57, 94, 1);
-}
+} */
 .accordion-label::after {
   content: '\276F';
   width: 16px;
@@ -106,14 +106,20 @@ input[type='radio'] {
   color: rgba(4, 57, 94, 0.7);
   font-size: 18px;
 }
-input[type='radio']:checked + .accordion-label {
-  background: rgba(4, 57, 94, 1);
+
+input[type='checkbox']{
+  appearance: none;
+  -webkit-appearance: none;
 }
-input[type='radio']:checked + .accordion-label::after {
+
+/* input[type='checkbox']:checked + .accordion-label {
+  background: rgba(4, 57, 94, 1);
+} */
+input[type='checkbox']:checked + .accordion-label::after {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-input[type='radio']:checked ~ .accordion-content {
+input[type='checkbox']:checked ~ .accordion-content {
   max-height: 100vh;
   padding: 16px;
 }
@@ -162,6 +168,7 @@ input[type='radio']:checked ~ .accordion-content {
 
   .accordion-label {
     flex-direction: column;
+    align-items: center;
     font-size: 1rem;
     /* display: block; */
     /* padding: 0; */

@@ -113,7 +113,7 @@ function Modal(props) {
                     props.type == 'compra' && (
                       <form onChange={(e) => promotionCode(e)} onSubmit={promotionCode}>
                         <p>Código Promocional</p>
-                        <input id="code" placeholder="Digite seu código..." disabled={promotionalCode && true} />
+                        <input id="code" className='' placeholder="Digite seu código..." disabled={promotionalCode && true} />
                         {promotionalCode ? (
                           <span className='cupomDesconto'>Cupom: {promotionalCode} <span onClick={removePromotionalCode}>&#10005;</span>
                           </span>

@@ -41,12 +41,12 @@ export default function Pedidos() {
                   return (
                     <div className="accordion-wrapper">
                       <div className="accordion">
-                        <input type="radio" name="radio-a" id={ped.id} defaultChecked />
+                        <input type="checkbox" name="radio-a" id={ped.id} defaultChecked />
                         <label className="accordion-label" htmlFor={ped.id}>
                           <strong>Total:</strong>{ped.data().total}
                           <strong>Data da compra:</strong>{ped.data().dataAtual}
                           <strong>Status do pedido:</strong>{ped.data().status}
-                          <strong>Entregar em:</strong>{ped.data().enderecoEntrega}
+                          <strong>Entregar em:</strong>{ped.data().enderecoEntrega.substring(0,10)}...
                           <strong>{ped.data().condicional ? 'Condicional' : 'Compra'}</strong>
                         </label>
                         <div className="accordion-content">
@@ -58,10 +58,8 @@ export default function Pedidos() {
                                     <img src={p.url} alt={p.title} />
                                     <div className='infoPedido'>
                                       <span><b>{p.title}</b></span>
-                                      <span><b>Data:</b> {ped.data().dataAtual}</span>
                                       <span><b>Endereço de entrega:</b><br /> {ped.data().enderecoEntrega}</span>
                                       <span><b>Quantidade:</b><br /> {p.quantidade}</span>
-                                      <span><b> Tipo do pedido: </b> {ped.data().condicional ? 'Condicional' : 'Compra'}</span>
 
                                     </div>
                                   </div>
