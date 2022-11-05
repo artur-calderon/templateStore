@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import styles from './Header.module.css'
 import NavBar from '../components/NavBar';
@@ -45,7 +45,7 @@ export default function Header() {
 
               </div>
             </>
-            : <p onClick={() => Auth()}>Fazer login</p>}
+            : <p onClick={() => Auth()}>Login</p>}
         </div>
       </div>
 

@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from './Promotion.module.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper';
+import { Pagination } from 'swiper';
 import 'swiper/css'
-import "swiper/css/navigation";
+import "swiper/css/pagination";
 function Promotion() {
   return (
     <div className={styles.mainImage}>
       <Swiper
         spaceBetween={5}
         slidesPerView={1}
-        navigation={true}
-        modules={[Navigation]}
+        pagination={true}
+        modules={[Pagination]}
         breakpoints={{
           // when window width is >= 640px
           640: {

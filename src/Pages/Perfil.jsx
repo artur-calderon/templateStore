@@ -13,7 +13,6 @@ export default function Perfil() {
   document.title = 'Usemarcas | Perfil'
   const { user } = useContext(UserContext)
   const [userInfo, setUserInfo] = useState({})
-  const [inputValue, setIputValue] = useState('')
   const dialog = withReactContent(Swal)
 
   useEffect(() => {
@@ -65,10 +64,14 @@ export default function Perfil() {
                 userInfo.map(info => {
                   return (
                     <>
-                      <p>Email:{info.data().email}</p><b onClick={() => updateUserInfo(info.data().email)}><u>Editar</u></b>
+                      <p>Email:{info.data().email}</p>
+                      <p>Telefone: {info.data().telefone}</p>
+                      <p>CPF: {info.data().cpf}</p>
+                      <p>Endereço: {info.data().endereco[0]}</p>
+                      {/* <p>Email:{info.data().email}</p><b onClick={() => updateUserInfo(info.data().email)}><u>Editar</u></b>
                       <p>Telefone: {info.data().telefone} <b onClick={() => updateUserInfo(info.data().telefone)}><u>Editar</u></b></p>
                       <p>CPF: {info.data().cpf} <b onClick={() => updateUserInfo(info.data().cpf)}><u>Editar</u></b></p>
-                      <p>Endereço: {info.data().endereco[0]} <b onClick={() => updateUserInfo(info.data().endereco[0])}><u>Editar</u></b></p>
+                      <p>Endereço: {info.data().endereco[0]} <b onClick={() => updateUserInfo(info.data().endereco[0])}><u>Editar</u></b></p> */}
                     </>
                   )
                 })

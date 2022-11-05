@@ -3,6 +3,7 @@
   width: 100%;
   padding: 5rem;
   display: flex;
+  height: calc(100vh - 50px);
   flex-direction: row;
   font-family: var(--font-padrao);
   align-items: center;
@@ -42,9 +43,8 @@
   border-radius: 50%;
 }
 @media screen and (max-width: 568px) {
- 
   .cont,
-  .perfil{
+  .perfil {
     flex-direction: column;
   }
 

@@ -16,7 +16,6 @@ export default function Pedidos() {
 
   useEffect(() => {
     if (!user) {
-      alert('Você não está logado!')
       window.location.href = '/'
 
     }
@@ -46,7 +45,7 @@ export default function Pedidos() {
                           <strong>Total:</strong>{ped.data().total}
                           <strong>Data da compra:</strong>{ped.data().dataAtual}
                           <strong>Status do pedido:</strong>{ped.data().status}
-                          <strong>Entregar em:</strong>{ped.data().enderecoEntrega.substring(0,10)}...
+                          <strong>Entregar em:</strong>{ped.data().enderecoEntrega.substring(0, 10)}...
                           <strong>{ped.data().condicional ? 'Condicional' : 'Compra'}</strong>
                         </label>
                         <div className="accordion-content">

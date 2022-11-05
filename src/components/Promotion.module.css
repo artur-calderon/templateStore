@@ -1,8 +1,8 @@
 .mainImage {
   width: 100%;
   padding-top: 4rem;
-  padding-bottom: 4rem;
-  height: 40rem;
+  /* padding-bottom: 4rem;
+  height: 40rem; */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -34,12 +34,12 @@
   -webkit-align-items: center;
   align-items: center;
 }
-
+/* 
 .swiper-button-next,
 .swiper-button-prev {
   color: #fff !important;
   background-color: transparent !important;
-}
+} */
 @media (max-width: 568px) {
   .swiper-wrapper {
     align-items: center;

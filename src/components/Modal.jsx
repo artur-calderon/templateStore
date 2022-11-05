@@ -85,6 +85,11 @@ function Modal(props) {
     setPromotionalCodeDiscount(0)
   }
 
+  function formatPrice(price) {
+    return Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
+
+  }
+
   return (
     <div className='modalBG'>
       <div className='modalContainer'>
@@ -119,7 +124,7 @@ function Modal(props) {
                           </span>
 
                         ) : ''}
-                        <span>Total: {props.total}</span>
+                        <span>Total: {formatPrice(props.total)}</span>
                       </form>
                     )
                   }

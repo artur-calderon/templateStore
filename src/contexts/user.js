@@ -58,6 +58,7 @@ function UserProvider({ children }) {
       .then(() => {
         // Sign-out successful.
         setUser(false)
+        window.location.href = '/'
       })
       .catch(error => {
         // An error happened.

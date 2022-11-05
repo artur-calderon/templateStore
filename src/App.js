@@ -6,7 +6,6 @@ import ThemeProvider from './contexts/themeContext'
 import UserProvider from './contexts/user'
 
 import Home from './Pages/Home'
-import Loja from './Pages/Loja'
 import InfoProductPage from './Pages/InfoProductPage'
 import ShoppingCart from './components/ShoppingCart'
 import Pedidos from './Pages/Pedidos'
@@ -23,7 +22,6 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/pedidos" element={<Pedidos />} />
                 <Route path="/perfil" element={<Perfil />} />
-                <Route path="/loja" element={<Loja />} />
                 <Route path="/carrinho" element={<ShoppingCart />} />
                 <Route path="/infoProduct/:id" element={<InfoProductPage />} />
               </Routes>

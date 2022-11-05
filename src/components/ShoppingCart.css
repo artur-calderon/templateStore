@@ -3,6 +3,7 @@
 }
 .returnClass {
   position: relative;
+  height: 100vh;
 }
 
 .card {
@@ -12,8 +13,9 @@
   margin: 0 auto;
   max-width: 950px;
   width: 90%;
+  height: 100%;
   /* box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-  padding: 1rem 0;
+  padding: 6rem 0;
   /* margin: 1rem 0; */
 }
 

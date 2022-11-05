@@ -15,7 +15,6 @@ import withReactContent from 'sweetalert2-react-content'
 import Header from './Header';
 import Footer from './Footer';
 import Modal from './Modal';
-import Promotion from './Promotion';
 import axios from 'axios';
 import { UserContext } from '../contexts/user';
 
@@ -115,8 +114,6 @@ export default function ShoppingCart() {
     })
 
   }
-
-
 
 
 
@@ -278,7 +275,6 @@ export default function ShoppingCart() {
       {openCompra && <Modal closer={setOpenCompra} user={user} type='compra' settotal={setTotal} total={total} pagar={() => Pagar(cartProductsPage)} cadastraPedido={cadastraPedido}>
       </Modal>}
       <Header />
-      <Promotion />
       <Cart />
       <Footer />
     </div>

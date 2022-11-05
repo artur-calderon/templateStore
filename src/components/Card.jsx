@@ -6,6 +6,14 @@ import { Link } from 'react-router-dom'
 import { GoInfo } from 'react-icons/go'
 
 export default function Card({ produtos }) {
+
+
+
+  function formatPrice(price) {
+    return price.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
+
+  }
+
   return (
     <div className='containercard'>
 
@@ -27,7 +35,7 @@ export default function Card({ produtos }) {
                     <p>Description Product tell me how to change playlist height size like 600px in html5 player. player good work now check this link</p>
                   </div> */}
                   <div className="card-footer">
-                    <span className="price">R$ {itens.data().preco}</span>
+                    <span className="price">{formatPrice(itens.data().preco)}</span>
                     <span><GoInfo size="25px" /></span>
                   </div>
                 </div>

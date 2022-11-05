@@ -21,6 +21,9 @@
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+
+  display: flex;
+  flex-direction: column;
 }
 
 .form-style-8 h2 {
@@ -68,25 +71,21 @@
 .form-style-8 input[type='button'],
 .form-style-8 input[type='submit'],
 .form-style-8 button {
-  -moz-box-shadow: inset 0px 1px 0px 0px #45d6d6;
-  -webkit-box-shadow: inset 0px 1px 0px 0px #45d6d6;
-  box-shadow: inset 0px 1px 0px 0px #45d6d6;
-  background-color: #2cbbbb;
-  border: 1px solid #27a0a0;
-  display: inline-block;
+  background-color: #000;
+  border-color: #000;
+  color: white;
+  width: 100%;
+  font-size: 0.7rem;
+  margin-top: 4vh;
+  padding: 1vh;
+  border-radius: 0;
   cursor: pointer;
-  color: #ffffff;
   font-family: var(--font-padrao);
   font-size: 14px;
   padding: 8px 18px;
+  margin-bottom: 1rem;
   text-decoration: none;
   text-transform: uppercase;
-}
-
-.form-style-8 input[type='button']:hover,
-.form-style-8 input[type='submit']:hover {
-  background: linear-gradient(to bottom, #34caca 5%, #30c9c9 100%);
-  background-color: #34caca;
 }
 
 /* ################ END FORM CSS ############ */
@@ -193,7 +192,7 @@ select:-moz-focusring {
     width: 100%;
 
   } */
-  .form-style-8{
+  .form-style-8 {
     width: 100%;
   }
 

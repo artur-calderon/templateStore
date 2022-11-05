@@ -3,11 +3,9 @@ import './infoProduct.css'
 import { db } from '../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { useNavigate, Link } from 'react-router-dom'
-import { FaCartPlus } from 'react-icons/fa'
 import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import { ProductContext } from '../contexts/products'
-import Promotion from './Promotion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Navigation } from "swiper";
 import 'swiper/css'
@@ -41,6 +39,13 @@ export default function InfoProduct({ id }) {
     return getInfoProduct
   }, [])
 
+  function formatPrice(price) {
+    return Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
+
+  }
+
+
+
   function adicionaToCart(id) {
     setClasseClick('clicked')
     setTimeout(() => {
@@ -51,7 +56,6 @@ export default function InfoProduct({ id }) {
 
   return (
     <>
-      <Promotion />
       <main className="main">
 
         {
@@ -63,16 +67,16 @@ export default function InfoProduct({ id }) {
                 slidesPerView={1}
                 navigation={true}
                 modules={[Pagination, Navigation]}
-                pagination={true}
+                pagination={false}
                 breakpoints={{
                   // when window width is >= 640px
                   640: {
                     slidesPerView: 1,
-                    spaceBetween: 10,
+                    spaceBetween: 5,
                   },
                   768: {
                     slidesPerView: 1,
-                    spaceBetween: 10,
+                    spaceBetween: 5,
                   }
                 }}
                 className='info'
@@ -101,7 +105,7 @@ export default function InfoProduct({ id }) {
 
                   <div className="row">
                     <div className="block_price">
-                      <p className="block_price__currency">R$ {infoProduct.preco}</p>
+                      <p className="block_price__currency">{formatPrice(infoProduct.preco)}</p>
                       <p className="block_price__shipping">Frete por conta do comprador</p>
                     </div>
                     <div className="button_addToCard">
