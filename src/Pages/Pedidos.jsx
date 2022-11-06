@@ -26,6 +26,12 @@ export default function Pedidos() {
     })
 
   }, [user])
+
+
+  function formatPrice(price) {
+    return Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
+
+  }
   return (
     <>
       <Header />
@@ -42,7 +48,7 @@ export default function Pedidos() {
                       <div className="accordion">
                         <input type="checkbox" name="radio-a" id={ped.id} defaultChecked />
                         <label className="accordion-label" htmlFor={ped.id}>
-                          <strong>Total:</strong>{ped.data().total}
+                          <strong>Total:</strong>{formatPrice(ped.data().total)}
                           <strong>Data da compra:</strong>{ped.data().dataAtual}
                           <strong>Status do pedido:</strong>{ped.data().status}
                           <strong>Entregar em:</strong>{ped.data().enderecoEntrega.substring(0, 10)}...

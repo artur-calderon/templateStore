@@ -4,8 +4,7 @@ import { ProductContext } from '../contexts/products';
 import { Link } from 'react-router-dom';
 
 import { db } from '../firebase';
-import { collection, addDoc, onSnapshot, query, doc } from 'firebase/firestore';
-
+import { collection, addDoc } from 'firebase/firestore';
 import './ShoppingCart.css'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -39,13 +38,13 @@ export default function ShoppingCart() {
     setCartProductsPage(cartProducts)
     if (cartProducts.length >= 1)
       cartProducts.map(val => {
-        // console.log(val);
         if (!val.subtotal) {
           val.subtotal = val.price
           setTotal(prev => prev += Number(val.subtotal))
         } else {
           setTotal(prev => prev += Number(val.subtotal))
         }
+
       })
   }, [cartProducts])
 
@@ -143,9 +142,9 @@ export default function ShoppingCart() {
       Auth();
     } else if (!cartProductsPage.length) {
       Alert.fire('Atenção', 'Você precisa ter um produto no carrinho', 'info')
-    } else if (action == 'compra') {
+    } else if (action === 'compra') {
       setOpenCompra(true)
-    } else if (action == 'condicional') {
+    } else if (action === 'condicional') {
       setOpenCondicional(!openCondicional)
 
     }
