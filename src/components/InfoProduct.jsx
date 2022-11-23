@@ -37,10 +37,11 @@ export default function InfoProduct({ id }) {
 
 
     return getInfoProduct
-  }, [])
+  }, [history, id])
 
   function formatPrice(price) {
-    return Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
+    if (price)
+      return price.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
 
   }
 
