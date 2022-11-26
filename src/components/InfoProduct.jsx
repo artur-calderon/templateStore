@@ -19,6 +19,7 @@ export default function InfoProduct({ id }) {
   const [classeClick, setClasseClick] = useState('');
   const history = useNavigate()
   const { addToCart } = useContext(ProductContext);
+  const [sizeSelected, setSizeSelected] = useState('')
 
   useEffect(() => {
 
@@ -52,7 +53,11 @@ export default function InfoProduct({ id }) {
     setTimeout(() => {
       setClasseClick('')
     }, 3000);
-    addToCart(id)
+    addToCart(id, sizeSelected)
+  }
+
+  function chooseSize(e) {
+    setSizeSelected(e.target.innerText)
   }
 
   return (
@@ -101,6 +106,16 @@ export default function InfoProduct({ id }) {
                 <div className="block_informationAboutDevice">
                   <div className="block_descriptionInformation">
                     <span>{infoProduct.descricao}</span>
+                  </div>
+                  <div className="block_descriptionInformation">
+                    <span>Selecione o Tamanho:</span>
+                    {
+                      infoProduct.tamanhos ?
+                        infoProduct.tamanhos.map(size =>
+                        (<span className={`sizes ${sizeSelected === size ? 'clicked' : ''}`} key={size} onClick={e => chooseSize(e)}>
+                          {size}
+                        </span>))
+                        : (<span>Nenhum tamanho</span>)}
                   </div>
 
 

@@ -52,6 +52,16 @@
   line-height: 23px;
   color: #263238;
 }
+.block_descriptionInformation .sizes {
+  cursor: pointer;
+  width: 5rem;
+  border: 0.5px solid rgb(82, 82, 82);
+  margin-right: 1rem;
+}
+
+.block_descriptionInformation .clicked {
+  border: 0.5px solid rgb(255, 0, 0);
+}
 
 .block_descriptionCharacteristic {
   position: absolute;

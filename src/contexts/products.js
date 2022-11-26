@@ -56,7 +56,7 @@ function ProductProvider({ children }) {
 
   let quantidade = 1
 
-  function addToCart(id) {
+  function addToCart(id, tamanhoEscolhido) {
     const newArray = Array.from(cartProducts)
     const duplicated = newArray.find(item => item.id === id)
 
@@ -73,7 +73,8 @@ function ProductProvider({ children }) {
             price: item.data().preco,
             url: item.data().urls,
             category: item.data().categoria,
-            quantidade
+            quantidade,
+            tamanhoEscolhido
           })
           for (let i = 0; i < itensCopy.length; i++) {
             if (item.id === itensCopy[i].id)

@@ -34,6 +34,7 @@ export default function ShoppingCart() {
   const Alert = withReactContent(Swal)
 
   useEffect(() => {
+    console.log(cartProducts)
     document.title = 'Usemarcas | Carrinho de compras'
     setCartProductsPage(cartProducts)
     if (cartProducts.length >= 1)
@@ -171,6 +172,7 @@ export default function ShoppingCart() {
                   <div className=" item" key={item.id}>
                     <div className="itemImageAndTitle">
                       <div className="category">{item.category}</div>
+                      <div className="category">Tamanho Selecionado: {item.tamanhoEscolhido}</div>
                       <div className="imageItem" ><img className="img-fluid" src={item.url[0]} alt='Foto Produto' /></div>
                       <div className="titleItem">
                         <div>{item.title}</div>
