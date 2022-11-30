@@ -131,7 +131,7 @@ export default function InfoProduct({ id }) {
                         <i className="fa fa-shopping-cart"></i>
                         <i className="fa fa-square"></i> </button>
                       <div>
-                        <Link to='/'><BiLeftArrowAlt /> Voltar para Produtos</Link>
+                        <Link to='/'><BiLeftArrowAlt /> Voltar a comprar</Link>
                       </div>
                     </div>
                   </div>

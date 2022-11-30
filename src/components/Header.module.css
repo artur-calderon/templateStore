@@ -78,6 +78,7 @@ a {
 }
 .userName {
   color: #ffffff;
+  cursor: pointer;
 }
 
 .menu .dropdown {

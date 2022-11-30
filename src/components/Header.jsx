@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import styles from './Header.module.css'
 import NavBar from '../components/NavBar';
@@ -17,6 +17,25 @@ export default function Header() {
   const { user, SignOut, Auth } = useContext(UserContext)
   const [menuUserActive, setMenuUserActive] = useState(false)
 
+  const menuUser = useRef();
+
+
+  useEffect(() => {
+    window.addEventListener('click', (e) => {
+      if (e.target !== menuUser.current) {
+        setMenuUserActive(false)
+      }
+    })
+  }, [])
+
+
+
+
+
+  function openMenuAndClose() {
+    setMenuUserActive(!menuUserActive)
+  }
+
   return (
     <>
       <div className={styles.menu}>
@@ -30,8 +49,8 @@ export default function Header() {
           <Link to='/carrinho'><HiOutlineShoppingBag size="25px" className={styles.cartButtonColor} /></Link>
           {user ?
             <>
-              <span className={styles.userName}>{user.displayName}</span>
-              <div className={styles.profile} onMouseEnter={() => setMenuUserActive(!menuUserActive)} onClick={() => setMenuUserActive(!menuUserActive)}>
+              <span className={styles.userName} ref={menuUser} onClick={openMenuAndClose}>{user.displayName}</span>
+              <div className={styles.profile}>
                 <CgProfile size="25px" className={styles.cartButtonColor} />
                 {
                   menuUserActive ? (

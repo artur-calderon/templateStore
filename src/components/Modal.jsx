@@ -35,7 +35,7 @@ function Modal(props) {
 
   async function updateUser(e, id) {
     e.preventDefault()
-    if (cpf.length < 10 || endereco[0].length < 20 || telefone.length < 10) {
+    if (cpf.length < 10 || endereco[0].length < 10 || telefone.length < 10) {
       dialog.fire('Essas informações não são válidas', '', 'error')
     } else {
       const userRef = doc(db, 'clientes', id);
