@@ -50,18 +50,35 @@ a {
   cursor: pointer;
 }
 
+.overlayMenu{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right:0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999999999;
+}
+
 .menuUser {
   position: absolute;
   z-index: 99;
   display: flex;
-  width: 5rem;
+  width: 8rem;
   padding: 1rem;
-  top: 3.5rem;
+  top: 3.8rem;
+  right: 4rem;
   flex-direction: column;
   list-style: none;
   background-color: rgb(255, 255, 255);
   color: black;
   text-align: center;
+  transition: all ease 3s;
 }
 
 .menuUser li:hover {
@@ -73,7 +90,7 @@ a {
 }
 .profile {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 .userName {
@@ -81,9 +98,7 @@ a {
   cursor: pointer;
 }
 
-.menu .dropdown {
-  top: -10rem;
-}
+
 .navbar .hamburgerLines {
   display: none;
 }
@@ -123,7 +138,9 @@ ul {
   }
 
   .menuUser {
+    top: 0;
     right: 0;
+    height: 100vh;
   }
 
   .NavBar .MobileNavigation {

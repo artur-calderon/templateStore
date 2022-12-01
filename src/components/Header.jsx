@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import styles from './Header.module.css'
 import NavBar from '../components/NavBar';
@@ -17,16 +17,8 @@ export default function Header() {
   const { user, SignOut, Auth } = useContext(UserContext)
   const [menuUserActive, setMenuUserActive] = useState(false)
 
-  const menuUser = useRef();
+ 
 
-
-  useEffect(() => {
-    window.addEventListener('click', (e) => {
-      if (e.target !== menuUser.current) {
-        setMenuUserActive(false)
-      }
-    })
-  }, [])
 
 
 
@@ -49,16 +41,18 @@ export default function Header() {
           <Link to='/carrinho'><HiOutlineShoppingBag size="25px" className={styles.cartButtonColor} /></Link>
           {user ?
             <>
-              <span className={styles.userName} ref={menuUser} onClick={openMenuAndClose}>{user.displayName}</span>
-              <div className={styles.profile}>
+              <div className={styles.profile} onClick={openMenuAndClose}>
                 <CgProfile size="25px" className={styles.cartButtonColor} />
+                <span className={styles.userName}  >{user.displayName}</span>
                 {
                   menuUserActive ? (
-                    <ul className={styles.menuUser}>
-                      <Link to='/perfil'><li>Perfil</li></Link>
-                      <Link to='/pedidos'><li>Pedidos</li></Link>
-                      <li onClick={SignOut}>Sair</li>
-                    </ul>
+                    <div className={styles.overlayMenu} onClick={openMenuAndClose}>
+                      <ul className={styles.menuUser}>
+                        <Link to='/perfil'><li>Perfil</li></Link>
+                        <Link to='/pedidos'><li>Pedidos</li></Link>
+                        <li onClick={SignOut}>Sair</li>
+                      </ul>
+                    </div>
                   ) : null
                 }
 
