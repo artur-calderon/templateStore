@@ -153,6 +153,7 @@ input[type='checkbox']:checked ~ .accordion-content {
 
   .accordion-content {
     overflow-y: scroll;
+    flex-direction: column;
   }
   .userPedidos {
     border: none;
@@ -161,6 +162,7 @@ input[type='checkbox']:checked ~ .accordion-content {
 
   .userPedidos .pedidoSingle,
   .pedidoSingle .imageProd {
+    width: 100%;
     align-items: center;
     flex-direction: column;
   }

@@ -108,7 +108,7 @@ export default function InfoProduct({ id }) {
                     <span>{infoProduct.descricao}</span>
                   </div>
                   <div className="block_descriptionInformation">
-                    <span>Selecione o Tamanho:</span>
+                    <span><b>Selecione o Tamanho:</b></span>
                     {
                       infoProduct.tamanhos ?
                         infoProduct.tamanhos.map(size =>
