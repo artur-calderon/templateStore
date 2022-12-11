@@ -14,6 +14,7 @@ a:hover {
 }
 
 .container {
+  position: relative;
   width: 100%;
   background-color: var(--footer-background-color);
   border-top: 1px solid #d4d4d4;

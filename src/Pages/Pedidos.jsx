@@ -65,6 +65,7 @@ export default function Pedidos() {
                                       <span><b>{p.title}</b></span>
                                       <span><b>Endereço de entrega:</b><br /> {ped.data().enderecoEntrega}</span>
                                       <span><b>Quantidade:</b><br /> {p.quantidade}</span>
+                                      <span><b>Tamanho:</b><br /> {p.tamanhoEscolhido}</span>
 
                                     </div>
                                   </div>

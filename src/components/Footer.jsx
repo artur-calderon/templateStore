@@ -13,7 +13,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.containerFooter}>
           <div className={styles.form}>
-            <a href='https://template-store.vercel.app' target='_blank'><p>Área administrativa</p></a>
+            <a href='https://template-store.vercel.app' target='_blank' rel="noreferrer"><p>Área administrativa</p></a>
           </div>
           {/* <form className={styles.form}>
             <label>Faça parte</label>

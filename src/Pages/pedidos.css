@@ -1,8 +1,7 @@
 .cont {
-  position: absolute;
   width: 100%;
-  height: auto;
   display: flex;
+  margin-bottom: 4.3rem;
   flex-direction: column;
   font-family: var(--font-padrao);
   align-items: center;
@@ -12,7 +11,9 @@
   display: flex;
   align-items: center;
   padding-top: 6rem;
+  margin-bottom: 3rem;
   width: 80%;
+  height: 100vh;
   grid-column-gap: 1rem;
   height: auto;
 }
@@ -31,7 +32,7 @@
 
 .userPedidos .pedidoSingle {
   padding: 1rem;
-  width: 100%;
+  width: 50%;
   display: flex;
   background-color: #f6f6f6;
   flex-direction: column;
@@ -94,6 +95,8 @@ input[type='radio'] {
   transition: all 0.3s;
 }
 .accordion-content {
+  display: flex;
+  flex-wrap: wrap;
   max-height: 0;
   padding: 0 16px;
   color: rgba(4, 57, 94, 1);
@@ -107,7 +110,7 @@ input[type='radio'] {
   font-size: 18px;
 }
 
-input[type='checkbox']{
+input[type='checkbox'] {
   appearance: none;
   -webkit-appearance: none;
 }

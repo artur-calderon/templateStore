@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './Promotion.module.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper';
+import { Pagination, Autoplay } from 'swiper';
 import 'swiper/css'
+import 'swiper/css/autoplay'
 import "swiper/css/pagination";
 function Promotion() {
   return (
@@ -11,7 +12,8 @@ function Promotion() {
         spaceBetween={5}
         slidesPerView={1}
         pagination={true}
-        modules={[Pagination]}
+        modules={[Pagination, Autoplay]}
+        autoplay={{ delay: 3000 }}
         breakpoints={{
           // when window width is >= 640px
           640: {

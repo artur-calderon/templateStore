@@ -50,7 +50,7 @@ export default function Perfil() {
   return (
     <>
       <Header />
-      <div className='cont'>
+      <div className='containerPerfil'>
         <div className='perfil'>
           <div className='userPhoto'>
             <img src={user.photoURL} referrerPolicy='no-referrer' alt='userPhoto' />
