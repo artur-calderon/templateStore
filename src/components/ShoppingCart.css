@@ -1,10 +1,10 @@
 .title {
   margin-bottom: 5vh;
 }
-.returnClass {
+/* .returnClass {
   position: relative;
   height: 100vh;
-}
+} */
 
 .card {
   display: flex;
@@ -172,6 +172,17 @@ a:hover {
   color: black;
   text-decoration: none;
 }
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 10%;
+  align-items: center;
+  justify-content: center;
+}
+.emptyCart img {
+  width: 10rem;
+}
 
 @media (max-width: 568px) {
   .card {
@@ -180,7 +191,7 @@ a:hover {
   }
 
   .cart {
-    padding: 0 0.6rem;
+    padding: 1rem 0.6rem 0 0.6rem;
     width: 100%;
   }
 
@@ -214,9 +225,14 @@ a:hover {
   }
 
   .summary {
+    border-radius: 0;
     width: 100%;
   }
 
+  .imageItem,
+  .col {
+    padding: 0;
+  }
   .form-style-8 {
     width: 100%;
   }

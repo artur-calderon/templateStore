@@ -8,6 +8,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import './ShoppingCart.css'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import emptyCart from '../img/basket.png'
 
 
 
@@ -189,24 +190,21 @@ export default function ShoppingCart() {
 
                 )
               })
-            ) : (<h1>Nenhum Produto</h1>)
+            ) : (<div className="emptyCart">
+              <h3>Nenhum produto no carrinho</h3>
+              <img src={emptyCart} alt='emptyCart'></img>
+            </div>)
           }
 
           <div className="back-to-shop"><Link to="/"><span className="text-muted">&#x21bc; Voltar a comprar</span></Link></div>
         </div>
         <div className="summary">
-          <div>
-            <h5><b>Relação de Itens</b></h5>
-          </div>
-          <hr />
-          <div className="row">
-            <div className="col" style={{ paddingLeft: 0 }}>ITENS </div>
-          </div>
 
           <div className="row" >
-            <div className="col">TOTAL</div>
-            <div className="col">{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</div>
+            <div className="col"><b>TOTAL</b></div>
+            <div className="col"><b>{total.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}</b></div>
           </div>
+          <hr />
           <button className="btn" onClick={() => showModal('compra')}>COMPRAR</button>
           <button className="btn" onClick={() => showModal('condicional')}>CONDICIONAL</button>
         </div>
@@ -266,7 +264,7 @@ export default function ShoppingCart() {
 
 
   return (
-    <div className='returnClass'>
+    <div>
       {/* modal de condicional */}
       {openCondicional && <Modal closer={setOpenCondicional} user={user} type='condicional' condicional={cadastraPedido}>
 

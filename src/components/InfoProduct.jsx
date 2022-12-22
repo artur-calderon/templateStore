@@ -53,7 +53,13 @@ export default function InfoProduct({ id }) {
     setTimeout(() => {
       setClasseClick('')
     }, 3000);
-    addToCart(id, sizeSelected)
+    if (!sizeSelected) {
+      alert('Selecione um tamanho para continuar')
+      setClasseClick('')
+    } else {
+      addToCart(id, sizeSelected)
+
+    }
   }
 
   function chooseSize(e) {
