@@ -140,8 +140,20 @@ export default function ShoppingCart() {
 
   function showModal(action) {
     if (!user) {
-      Alert.fire('Atenção', 'Você precisa estar logado', 'info')
-      Auth();
+      
+      Alert.fire({
+        title: 'Atenção!',
+        text: "Você precisa estar logado!",
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Fazer login'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Auth();
+                }
+      })
     } else if (!cartProductsPage.length) {
       Alert.fire('Atenção', 'Você precisa ter um produto no carrinho', 'info')
     } else if (action === 'compra') {

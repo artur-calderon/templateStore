@@ -104,7 +104,7 @@ p {
   cursor: pointer;
 }
 
-span {
+.quantityItem span {
   padding: 0 1vh;
 }
 

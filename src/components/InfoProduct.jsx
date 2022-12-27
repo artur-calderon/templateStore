@@ -5,6 +5,10 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useNavigate, Link } from 'react-router-dom'
 import { BiLeftArrowAlt } from 'react-icons/bi'
 
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 import { ProductContext } from '../contexts/products'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Navigation } from "swiper";
@@ -21,6 +25,8 @@ export default function InfoProduct({ id }) {
   const { addToCart } = useContext(ProductContext);
   const [sizeSelected, setSizeSelected] = useState('')
 
+  const Alert = withReactContent(Swal)
+
   useEffect(() => {
 
     const docRef = doc(db, 'products', id);
@@ -31,7 +37,7 @@ export default function InfoProduct({ id }) {
       setUrl(val.data().urls)
 
       if (val._document === null) {
-        alert('Nenhum Produto Encontrado! Redirecionando para página principal')
+        Alert.fire( 'Nenhum Produto Encontrado! Redirecionando para página principal', 'info')
         history('/')
       }
     })
@@ -54,7 +60,7 @@ export default function InfoProduct({ id }) {
       setClasseClick('')
     }, 3000);
     if (!sizeSelected) {
-      alert('Selecione um tamanho para continuar')
+      Alert.fire('Atenção', 'Selecione um tamanho para continuar', 'info')
       setClasseClick('')
     } else {
       addToCart(id, sizeSelected)
@@ -114,7 +120,7 @@ export default function InfoProduct({ id }) {
                     <span>{infoProduct.descricao}</span>
                   </div>
                   <div className="block_descriptionInformation">
-                    <span><b>Selecione o Tamanho:</b></span>
+                    <span><b>Selecione o Tamanho:{'  '}</b></span>
                     {
                       infoProduct.tamanhos ?
                         infoProduct.tamanhos.map(size =>

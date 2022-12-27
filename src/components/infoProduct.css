@@ -14,6 +14,8 @@
   position: relative;
   display: flex;
   padding: 1rem;
+  margin-top: 2rem;
+
   align-items: flex-start;
   justify-content: center;
   gap: 2rem;
@@ -53,10 +55,12 @@
   width: 5rem;
   border: 0.5px solid rgb(82, 82, 82);
   margin-right: 1rem;
+  padding: 0 1vh;
 }
 
+
 .block_descriptionInformation .clicked {
-  border: 0.5px solid rgb(255, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
 }
 
 .block_descriptionCharacteristic {
@@ -78,7 +82,7 @@
   padding: 0;
   margin: 0;
   vertical-align: top;
-  color: #f1425d;
+  color: #000000;
   font-size: 26px;
   font-weight: 600;
   font-family: var(--font-padrao);
