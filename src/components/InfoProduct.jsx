@@ -24,6 +24,7 @@ export default function InfoProduct({ id }) {
   const history = useNavigate()
   const { addToCart } = useContext(ProductContext);
   const [sizeSelected, setSizeSelected] = useState('')
+  const [fullImage , setFullImage] = useState('')
 
   const Alert = withReactContent(Swal)
 
@@ -79,10 +80,12 @@ export default function InfoProduct({ id }) {
         {
           infoProduct ? (
             <div className="productCard_block">
-
+              <div className='info'>
+                <img src={fullImage && url[0]} alt=''/>
+              </div>
               <Swiper
-                spaceBetween={2}
-                slidesPerView={1}
+                spaceBetween={3}
+                slidesPerView={3}
                 navigation={true}
                 modules={[Pagination, Navigation]}
                 pagination={false}
@@ -97,7 +100,7 @@ export default function InfoProduct({ id }) {
                     spaceBetween: 5,
                   }
                 }}
-                className='info'
+                className='smallView'
               >
                 {
                   url.map((url, index) => {
@@ -142,7 +145,7 @@ export default function InfoProduct({ id }) {
                         <span className="added">Adicionado</span>
                         <i className="fa fa-shopping-cart"></i>
                         <i className="fa fa-square"></i> </button>
-                      <div>
+                      <div  className='voltar_comprar'>
                         <Link to='/'><BiLeftArrowAlt /> Voltar a comprar</Link>
                       </div>
                     </div>
