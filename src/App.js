@@ -10,6 +10,7 @@ import InfoProductPage from './Pages/InfoProductPage'
 import ShoppingCart from './components/ShoppingCart'
 import Pedidos from './Pages/Pedidos'
 import Perfil from './Pages/Perfil'
+import { ScrollTop } from './components/ScrollTop'
 
 function App() {
   return (
@@ -18,13 +19,15 @@ function App() {
         <UserProvider>
           <ThemeProvider>
             <ProductProvider>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/pedidos" element={<Pedidos />} />
-                <Route path="/perfil" element={<Perfil />} />
-                <Route path="/carrinho" element={<ShoppingCart />} />
-                <Route path="/infoProduct/:id" element={<InfoProductPage />} />
-              </Routes>
+              <ScrollTop>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/pedidos" element={<Pedidos />} />
+                  <Route path="/perfil" element={<Perfil />} />
+                  <Route path="/carrinho" element={<ShoppingCart />} />
+                  <Route path="/infoProduct/:id" element={<InfoProductPage />} />
+                </Routes>
+              </ScrollTop>
             </ProductProvider>
           </ThemeProvider>
         </UserProvider>
