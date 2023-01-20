@@ -14,6 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Navigation } from "swiper";
 import 'swiper/css'
 import "swiper/css/navigation";
+import "swiper/css/free-mode";
 
 
 
@@ -24,7 +25,7 @@ export default function InfoProduct({ id }) {
   const history = useNavigate()
   const { addToCart } = useContext(ProductContext);
   const [sizeSelected, setSizeSelected] = useState('')
-  const [fullImage , setFullImage] = useState('')
+  const [fullImage, setFullImage] = useState('')
 
   const Alert = withReactContent(Swal)
 
@@ -38,13 +39,12 @@ export default function InfoProduct({ id }) {
       setUrl(val.data().urls)
 
       if (val._document === null) {
-        Alert.fire( 'Nenhum Produto Encontrado! Redirecionando para página principal', 'info')
+        // Alert.fire('Nenhum Produto Encontrado! Redirecionando para página principal', 'info')
         history('/')
       }
     })
 
 
-    return getInfoProduct
   }, [history, id])
 
   function formatPrice(price) {
@@ -52,7 +52,6 @@ export default function InfoProduct({ id }) {
       return price.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
 
   }
-
 
 
   function adicionaToCart(id) {
@@ -73,6 +72,7 @@ export default function InfoProduct({ id }) {
     setSizeSelected(e.target.innerText)
   }
 
+
   return (
     <>
       <main className="main">
@@ -81,37 +81,41 @@ export default function InfoProduct({ id }) {
           infoProduct ? (
             <div className="productCard_block">
               <div className='info'>
-                <img src={fullImage && url[0]} alt=''/>
-              </div>
-              <Swiper
-                spaceBetween={3}
-                slidesPerView={3}
-                navigation={true}
-                modules={[Pagination, Navigation]}
-                pagination={false}
-                breakpoints={{
-                  // when window width is >= 640px
-                  640: {
-                    slidesPerView: 1,
-                    spaceBetween: 5,
-                  },
-                  768: {
-                    slidesPerView: 1,
-                    spaceBetween: 5,
+                <div className='fullImage'>
+                  <img src={!fullImage ? url[0] : fullImage} alt='' />
+                </div>
+                <Swiper
+                  slidesPerView={3}
+                  spaceBetween={30}
+                  navigation={true}
+                  modules={[Pagination, Navigation]}
+                  pagination={false}
+                  breakpoints={{
+                    // when window width is >= 640px
+                    640: {
+                      slidesPerView: 3,
+                      spaceBetween: 5,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                      spaceBetween: 5,
+                    }
+                  }}
+                  className='mySwiper'
+                >
+                  {
+                    url.map((url) => {
+                      return (
+
+                        <SwiperSlide key={url}>
+                          <img src={url} alt='Produto' key={url} onClick={e => setFullImage(url)} />
+                        </SwiperSlide>
+
+                      )
+                    })
                   }
-                }}
-                className='smallView'
-              >
-                {
-                  url.map((url, index) => {
-                    return (
-                      <SwiperSlide key={index}>
-                        <img src={url} alt='Produto' key={index} />
-                      </SwiperSlide>
-                    )
-                  })
-                }
-              </Swiper>
+                </Swiper>
+              </div>
               <div className="block_product">
                 <p className="block_model">
                   <span className="block_model__text">Categoria: </span>
@@ -120,7 +124,7 @@ export default function InfoProduct({ id }) {
                 <h2 className="block_name block_name__mainName">{infoProduct.title}<sup>&reg; </sup></h2>
                 <div className="block_informationAboutDevice">
                   <div className="block_descriptionInformation">
-                    <span>{infoProduct.descricao}</span>
+                    <span className='description'>{infoProduct.descricao}</span>
                   </div>
                   <div className="block_descriptionInformation">
                     <span><b>Selecione o Tamanho:{'  '}</b></span>
@@ -145,7 +149,7 @@ export default function InfoProduct({ id }) {
                         <span className="added">Adicionado</span>
                         <i className="fa fa-shopping-cart"></i>
                         <i className="fa fa-square"></i> </button>
-                      <div  className='voltar_comprar'>
+                      <div className='voltar_comprar'>
                         <Link to='/'><BiLeftArrowAlt /> Voltar a comprar</Link>
                       </div>
                     </div>
