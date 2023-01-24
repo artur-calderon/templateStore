@@ -9,15 +9,10 @@ import "swiper/css/pagination";
 import { db } from '../firebase'
 import { collection, query, onSnapshot } from 'firebase/firestore'
 
-import { IoIosArrowForward } from 'react-icons/io'
 
-import Dropdown from 'react-dropdown';
 import { ProductContext } from '../contexts/products';
 
-const options = [
-  'one', 'two', 'three'
-]
-const defaultOptions = options[0]
+
 function Promotion() {
   const [category, setCategory] = useState([])
   const [showArrow, setShowArrow] = useState(null)
@@ -50,10 +45,10 @@ function Promotion() {
               <li
                 key={cat.id}
                 onClick={(e) => changeStyleAndFilterCategory(cat.data().newcategory)}
-    
+
                 className={showArrow === cat.data().newcategory ? styles.clicked : null}
-                >
-               {cat.data().newcategory}
+              >
+                {cat.data().newcategory}
               </li>
             )
           })

@@ -35,7 +35,6 @@ export default function ShoppingCart() {
   const Alert = withReactContent(Swal)
 
   useEffect(() => {
-    console.log(cartProducts)
     document.title = 'Usemarcas | Carrinho de compras'
     setCartProductsPage(cartProducts)
     if (cartProducts.length >= 1)
@@ -140,7 +139,7 @@ export default function ShoppingCart() {
 
   function showModal(action) {
     if (!user) {
-      
+
       Alert.fire({
         title: 'Atenção!',
         text: "Você precisa estar logado!",
@@ -152,7 +151,7 @@ export default function ShoppingCart() {
       }).then((result) => {
         if (result.isConfirmed) {
           Auth();
-                }
+        }
       })
     } else if (!cartProductsPage.length) {
       Alert.fire('Atenção', 'Você precisa ter um produto no carrinho', 'info')
@@ -225,9 +224,12 @@ export default function ShoppingCart() {
 
   }
 
+  function geraCodigoPedido() {
+    const cod = Math.floor(Math.random() * 65536)
+    return `#PED-${cod}`
+  }
 
-
-
+  console.log(geraCodigoPedido())
 
   function cadastraPedido(end) {
     const date = new Date();
@@ -237,6 +239,7 @@ export default function ShoppingCart() {
     const dataAtual = `${dia}/${mes}/${ano}`;
     if (cartProductsPage.length > 0) {
       addDoc(collection(db, 'pedidos'), {
+        idPedido: geraCodigoPedido(),
         cartProductsPage,
         total,
         uid: user.uid,
@@ -247,8 +250,6 @@ export default function ShoppingCart() {
 
       }).then(res => {
         if (res) {
-
-
           Alert.fire({
             title: 'Pedido Realizado',
             icon: 'success',

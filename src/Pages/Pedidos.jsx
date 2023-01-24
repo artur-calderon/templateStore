@@ -41,7 +41,6 @@ export default function Pedidos() {
             {
               userPedidos.length > 0 ? (
                 userPedidos.map(ped => {
-                  console.log(ped)
                   const prod = ped.data().cartProductsPage;
                   return (
                     <div className="accordion-wrapper">
@@ -51,7 +50,7 @@ export default function Pedidos() {
                           <strong>Total:</strong>{formatPrice(ped.data().total)}
                           <strong>Data da compra:</strong>{ped.data().dataAtual}
                           <strong>Status do pedido:</strong>{ped.data().status}
-                          <strong>Entregar em:</strong>{ped.data().enderecoEntrega.substring(0, 10)}...
+                          <strong><b>ID do pedido: </b>{ped.data().idPedido}</strong>
                           <strong>{ped.data().condicional ? 'Condicional' : 'Compra'}</strong>
                         </label>
                         <div className="accordion-content">
